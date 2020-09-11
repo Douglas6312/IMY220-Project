@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Raleway');
+/*-----------------General-----------------------------*/
+
+/*----------------Header + Nav---------------------------*/
+#topHeader
+{
+    background: #e9e8e6;
+    box-shadow: 0px 0px 25px 0 rgba(0, 0, 0, 1);
+    z-index: 997;
+    padding: 10px 0;
+}
+
+#topHeader .logo {
+    font-size: 32px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+#topHeader .logo a {
+    color: #222222;
+}
+
+#topHeader .logo img {
+    max-height: 30px;
+}
+
+/*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+#splashInfo
+{
+    margin-top: -40vh;
+}
+
+#splash {
+    width: 100%;
+    height: 100vh;
+    background: url("../img/nature-photography.jpg") top right;
+    background-size: cover;
+}
+
+#splash .container {
+    padding-top: 70px;
+    position: relative;
+}
+
+#splash h1 {
+    margin: 0;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 56px;
+    color: #222222;
+}
+
+#splash h2 {
+    color: #212121;
+    margin: 10px 0 0 0;
+    font-size: 22px;
+}
+
+#splash .btnLink {
+    display: inline-block;
+    padding: 12px 40px;
+    border-radius: 50px;
+    transition: 0.5s;
+    margin-top: 30px;
+    color: #fff;
+    background: #34b7a7;
+    font-family: "Raleway", sans-serif;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+#splash .btnLink:hover {
+    background: #42d1c1;
+    color: black;
+}
+
+#splash
+{
+    background-attachment: fixed;
+}
+
+/*-------------------------Login + Register------------------------*/
+
+div.card-body{
+    font-family: 'Raleway', sans-serif;
+}
+
+div.card-header{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+div.row.imageGallery div[class^="col"]{
+    background-size: cover;
+    background-position: center center;
+    height: 300px;
+}
+
+i.fa{
+    margin-left: 0.5em;
+}
+
+@media (min-width: 992px){
+    i.fa{
+        transition: all 0.5s;
+    }
+
+    button:hover i.fa{
+        margin-left: 1.5em;
+        transform: rotate(90deg);
+        transition: all 0.5s;
+    }
+}
+
+.product_view .modal-dialog{max-width: 800px; width: 100%;}
+/*------------------Footer----------------------------*/
+
+#AdditionalFooterInfo, #welcomeMessage {
+    background: #e9e8e6;
+    padding: 30px 0;
+    color: #222222;
+    font-size: 14px;
+    text-align: center;
+
+    box-shadow: 0px 0px 25px 0 rgba(0, 0, 0, 1);
+}
+
+#AdditionalFooterInfo
+{
+    background: url("../img/background2.jpeg") top right;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+}
+
+#welcomeMessage
+{
+    background: url("../img/Welcome.jpeg") top right;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+}
+
+
+
