@@ -1,0 +1,32 @@
+#heading{
+    margin-top: 6em;
+    margin-left: 8%;
+    margin-right: 8%;
+    border-bottom: 12px solid #34b7a7;
+
+}
+
+#myFeed{
+    padding-left: 8%;
+    padding-right: 8%;
+    padding-top: 2%;
+}
+
+i{
+    color: black;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+}
+
+.media img {
+    width: 60px;
+    height: 60px
+}
+

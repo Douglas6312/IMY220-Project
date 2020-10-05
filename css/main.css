@@ -4,10 +4,11 @@
 /*----------------Header + Nav---------------------------*/
 #topHeader
 {
-    background: #e9e8e6;
-    box-shadow: 0px 0px 25px 0 rgba(0, 0, 0, 1);
+    background: #e1e0de;
+    box-shadow: 0px 0px 25px 0 rgba(0, 0, 0, 0.6);
     z-index: 997;
     padding: 10px 0;
+    height: 4.5em;
 }
 
 #topHeader .logo {
@@ -24,13 +25,43 @@
     color: #222222;
 }
 
+
 #topHeader .logo img {
-    max-height: 30px;
+    max-height: 40px;
 }
 
-/*--------------------------------------------------------------
-# Hero Section
---------------------------------------------------------------*/
+.nav-link{
+    font-weight: bolder;
+    font-size: large;
+    /*margin-right: 1em;*/
+}
+
+.activeLine{
+    border-bottom: 2px solid currentColor;
+}
+
+nav.navbar{
+    height: 4em;
+}
+
+div#navbarResponsive{
+    margin-right: 0em;
+    margin-left: auto;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+}
+
+.fa-remove{
+    color: white;
+}
+
+
+/*------------------ Hero Section ----------------------------*/
 #splashInfo
 {
     margin-top: -40vh;
@@ -39,7 +70,7 @@
 #splash {
     width: 100%;
     height: 100vh;
-    background: url("../img/nature-photography.jpg") top right;
+    background: url("../assets/nature-photography.jpg") top right;
     background-size: cover;
 }
 
@@ -73,7 +104,7 @@
     font-family: "Raleway", sans-serif;
     text-transform: uppercase;
     font-weight: 600;
-    font-size: 12px;
+    font-size: 20px;
     letter-spacing: 1px;
 }
 
@@ -87,7 +118,7 @@
     background-attachment: fixed;
 }
 
-/*-------------------------Login + Register------------------------*/
+/*-------------------------Login + Register (Forms)------------------------*/
 
 div.card-body{
     font-family: 'Raleway', sans-serif;
@@ -99,10 +130,28 @@ div.card-header{
     font-weight: bold;
 }
 
-div.row.imageGallery div[class^="col"]{
-    background-size: cover;
-    background-position: center center;
-    height: 300px;
+div.modal-header{
+    background-color: #34b7a7;
+}
+
+.submitButton{
+    background-color: #34b7a7;
+    border: #34b7a7;
+
+}
+
+input:focus, textarea:focus, select:focus {
+    border: 1px solid #34b7a7 !important;
+    box-shadow: 0 0 5px #34b7a7 !important;
+}
+
+.inputWarning{
+    border: 1px solid red !important;
+    box-shadow: 0 0 5px red !important;
+}
+
+div.card{
+    border: none;
 }
 
 i.fa{
@@ -118,10 +167,12 @@ i.fa{
         margin-left: 1.5em;
         transform: rotate(90deg);
         transition: all 0.5s;
+
     }
 }
 
 .product_view .modal-dialog{max-width: 800px; width: 100%;}
+
 /*------------------Footer----------------------------*/
 
 #AdditionalFooterInfo, #welcomeMessage {
@@ -136,7 +187,7 @@ i.fa{
 
 #AdditionalFooterInfo
 {
-    background: url("../img/background2.jpeg") top right;
+    background: url("../assets/pic1.jpg") top right;
     width: 100%;
     height: 100vh;
     background-size: cover;
@@ -144,7 +195,7 @@ i.fa{
 
 #welcomeMessage
 {
-    background: url("../img/Welcome.jpeg") top right;
+    background: url("../assets/Welcome.jpeg") top right;
     width: 100%;
     height: 100vh;
     background-size: cover;
