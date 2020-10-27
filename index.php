@@ -1,3 +1,9 @@
+<?php
+session_start();
+session_unset();
+session_destroy();
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +13,8 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/main.css" />
 
@@ -51,7 +58,7 @@
 </section>
 
 <footer id="AdditionalFooterInfo">
-    <div class="container-fluid mt-5" >
+    <div class="container-fluid mt-5 bg-text">
       <!--  Detailed descriptions of what website offers will go  here-->
         <h4 class="display-4 text-left"><b>Why Choose PHOTOFRAMES</b></h4>
         <br>
@@ -73,7 +80,6 @@
 
 </footer>
 
-
 <div class="modal fade product_view" id="login_view">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -87,7 +93,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-                                    <form method="POST" action="./php/home.php">
+                                    <form method="POST" action="./php/home.php" id="loginForm">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-12 col-lg-6">
@@ -129,7 +135,7 @@
                     <section id="forms" >
                             <div class="col-12">
                                 <div class="card">
-                                    <form method="POST"  action="./php/home.php">
+                                    <form method="POST"  action="./php/home.php" id="registerForm">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-12 col-lg-6">
@@ -175,10 +181,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-</div> <!--TODO Random div tag here, check where one is missing...-->
-
+</div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

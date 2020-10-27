@@ -1,14 +1,5 @@
 <?php
-
 include "./globals.php";
-
-//TODO cant get PHP sessions to work...
-/*if(isset($_SESSION["userID"]))
-{
-    header("Location:../index.php");
-    exit();
-}*/
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,12 +16,6 @@ include "./globals.php";
     <link rel="stylesheet" type="text/css" href="../css/home.css" />
 </head>
 <body>
-
-<!--TODO Need to add another nav option for viewing and sending messages !!!! -->
-<!--TODO Clearly display of the user is an admin user... -->
-<!--TODO Make sure to include and implement to logout functionality in all files (deleting all the DOM cookies etc...) -->
-<!--TODO Implement an infinite scroll !!!!!!! (Likw the one assignment...)-->
-
 
 <header id="topHeader" class="fixed-top">
     <div class="container-fluid d-flex justify-content-between align-items-center">
@@ -52,12 +37,18 @@ include "./globals.php";
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto mr-auto">
                     <li class="nav-item mx-1 active activeLine"><a class="nav-link" href="./home.php">My Feed</a></li>
-                    <li class="nav-item mx-1"><a class="nav-link" href="#">Explore</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link" href="./explore.php">Explore</a></li>
                     <li class="nav-item mx-1"><a class="nav-link" href="./album.php">My Albums</a></li>
                 </ul>
                 <ul class="navbar-nav float-right">
+                    <a class="nav-link mr-2 p-0" href="./message.php">
+                        <span class="fa-stack">
+                            <i class="fa fa-comment fa-stack-2x"></i>
+                            <strong class="fa-stack-1x fa-stack-text fa-inverse"><?php echo $numUnreadMessages ?></strong>
+                        </span>
+                    </a>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Profile</a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['userName'] ?></a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="./profile.php">View Profile</a>
                             <div class="dropdown-divider"></div>
@@ -65,7 +56,17 @@ include "./globals.php";
                         </div>
                     </li>
                 </ul>
-                <img src="../assets/default.png" alt="Avatar" class="avatar mr-2">
+                <?php
+                    if ($_SESSION['userType'] == "admin")
+                    {
+                        echo ' <img src="../assets/default.png" alt="Avatar" class="adminAvatar mr-0">
+                                <i class="fa fa-star ml-0 mb-4" aria-hidden="true"></i>';
+                    }
+                    else
+                    {
+                        echo ' <img src="../assets/default.png" alt="Avatar" class="avatar mr-2">';
+                    }
+                ?>
             </div>
 
         </nav>
@@ -77,291 +78,48 @@ include "./globals.php";
     <h1>My Activity Feed</h1>
 </div>
 
-
 <!--TODO having loading symbol while the main content (My Feed) get populated from tge DB and js-->
-<!--TODO When user clicks on the image it takes them to the post view to show all details regarding img at full size...-->
 
 <main id="myFeed" class="container-fluid">
     <div class="row">
-        <div class="column">
-            <div class="img" data-postID="1234">
-                <img src="../gallery/wedding.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/rocks.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/falls2.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/paris.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/nature.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/mist.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/paris.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="img" data-postID="1234">
-                <img src="../gallery/underwater.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/ocean.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/wedding.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/mountainskies.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/rocks.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/underwater.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="img" data-postID="1234">
-                <img src="../gallery/wedding.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/rocks.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/falls2.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/paris.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/nature.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/mist.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/paris.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="img" data-postID="1234">
-                <img src="../gallery/underwater.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/ocean.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/wedding.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/mountainskies.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/rocks.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-            <div class="img" data-postID="1234">
-                <img src="../gallery/underwater.jpg" class="image" alt="imgGoesHere">
-                <div class="middle">
-                    <div class="text">Image <a href="#">Title</a></div>
-                    <div class="text">By <a href="#" data-userID="1234">Douglas</a></div>
-                    <div class="text"><i class="fa fa-star-o" aria-hidden="true"></i> Likes/Stars</div>
-                    <div class="text"># HashTags</div>
-                    <div class="text"><i class="fa fa-comment-o" aria-hidden="true"></i> Recent Comments</div>
-                </div>
-            </div>
-        </div>
+        <div class="column" id="col1">
 
+            <div class="img" data-postID="1234">
+                <img src="../gallery/ocean.jpg" class="image" alt="imgGoesHere">
+                <div class="middle">
+                    <div class="text top-right">By <a href="#" data-userID="1234">Douglas</a></div>
+                    <div class="text text-middle">Image Title</div>
+                </div>
+                <div class="bottom">
+                    <div class="text bottom-left ml-1">
+                        <span> | ISO <b>100</b> |</span>
+                        <span> <b>1/100</b> |</span>
+                        <span> &fnof;<b>2.8</b> |</span>
+                        <span> <b>50</b>mm |</span>
+                    </div>
+                    <div class="text bottom-right mr-1" id="likePhoto"><a href="#" data-postID="1234"><i class="fa fa-star-o" aria-hidden="true"></i></a><span data-hasstared="false">12</span></div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="column" id="col2">
+
+
+        </div>
+        <div class="column" id="col3">
+
+
+        </div>
+        <div class="column" id="col4">
+
+        </div>
     </div>
 </main>
 
 <section id="newPost">
     <a class="fab" data-toggle="modal" data-target="#newPost_View"> + </a>
 </section>
-
-<!--TODO must still implement it to be able to upload to the server -->
-<!--TODO remember to be able to change the permissions of the galary folder in file zilla-->
-<!--TODO make sure to do all the necessary error checks and sanitization with proper rules and error checking... -->
 
 <div class="modal fade product_view" id="newPost_View">
     <div class="modal-dialog">

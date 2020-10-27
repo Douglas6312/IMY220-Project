@@ -1,19 +1,10 @@
 <?php
-
 include "./globals.php";
-
-//TODO cant get PHP sessions to work...
-/*if(isset($_SESSION["userID"]))
-{
-    header("Location:../index.php");
-    exit();
-}*/
-
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home</title>
+    <title>My Profile</title>
     <meta charset="utf-8" />
     <meta name="author" content="Douglas van Reeuwyk">
 
@@ -46,12 +37,18 @@ include "./globals.php";
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto mr-auto">
                     <li class="nav-item mx-1"><a class="nav-link" href="./home.php">My Feed</a></li>
-                    <li class="nav-item mx-1"><a class="nav-link" href="#">Explore</a></li>
+                    <li class="nav-item mx-1"><a class="nav-link" href="./explore.php">Explore</a></li>
                     <li class="nav-item mx-1"><a class="nav-link" href="./album.php">My Albums</a></li>
                 </ul>
                 <ul class="navbar-nav float-right">
+                    <a class="nav-link mr-2 p-0" href="./message.php">
+                        <span class="fa-stack">
+                            <i class="fa fa-comment fa-stack-2x"></i>
+                            <strong class="fa-stack-1x fa-stack-text fa-inverse"><?php echo $numUnreadMessages ?></strong>
+                        </span>
+                    </a>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active activeLine" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Profile</a>
+                        <a class="nav-link dropdown-toggle active activeLine" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['userName'] ?></a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="./profile.php">View Profile</a>
                             <div class="dropdown-divider"></div>
@@ -59,7 +56,17 @@ include "./globals.php";
                         </div>
                     </li>
                 </ul>
-                <img src="../assets/default.png" alt="Avatar" class="avatar mr-2">
+                <?php
+                if ($_SESSION['userType'] == "admin")
+                {
+                    echo ' <img src="../assets/default.png" alt="Avatar" class="adminAvatar mr-0">
+                                <i class="fa fa-star ml-0 mb-4" aria-hidden="true"></i>';
+                }
+                else
+                {
+                    echo ' <img src="../assets/default.png" alt="Avatar" class="avatar mr-2">';
+                }
+                ?>
             </div>
         </nav>
     </div>
