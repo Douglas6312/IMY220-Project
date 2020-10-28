@@ -1,0 +1,10 @@
+#myAlbums{
+    padding-left: 8%;
+    padding-right: 8%;
+    padding-top: 2%;
+}
+
+a.albumCar{
+    text-decoration: none;
+    color: black;
+}

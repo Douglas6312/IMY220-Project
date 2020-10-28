@@ -20,7 +20,7 @@ $regEmail = test_input(isset($_POST["regEmail"]) ? $_POST["regEmail"] : false);
 $regDob = test_input(isset($_POST["regDob"]) ? $_POST["regDob"] : false);
 $regPass1 = test_input(isset($_POST["regPass1"]) ? $_POST["regPass1"] : false);
 
-sleep(1);
+sleep(0.5);
 
 if(!$mysqli->connect_errno) //check if the connection to the DB was successful
 {

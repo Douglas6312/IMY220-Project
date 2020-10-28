@@ -34,9 +34,6 @@ session_start();
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
-                    <!--<li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Feed</a></li>-->
                 </ul>
             </div>
         </nav>
@@ -54,12 +51,10 @@ session_start();
             </div>
         </div>
     </div>
-    <!--More content Will go Here promoting website and Other stuff-->
 </section>
 
 <footer id="AdditionalFooterInfo">
     <div class="container-fluid mt-5 bg-text">
-      <!--  Detailed descriptions of what website offers will go  here-->
         <h4 class="display-4 text-left"><b>Why Choose PHOTOFRAMES</b></h4>
         <br>
         <ul>
@@ -71,11 +66,6 @@ session_start();
             <li><h1 class="text-left"><b>Easily share and organise your memories</b></h1></li>
             <li><h1 class="text-left"><b>Just be cool</b></h1></li>
         </ul>
-        <!--<div class="pull-right">
-            <a href="#" class="twitter"><i class="fa fa-twitter fa-4x text-white"></i></a>
-            <a href="#" class="facebook"><i class="fa fa-facebook fa-4x text-white"></i></a>
-            <a href="#" class="instagram"><i class="fa fa-instagram fa-4x text-white"></i></a>
-        </div>-->
     </div>
 
 </footer>
@@ -93,7 +83,7 @@ session_start();
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-                                    <form method="POST" action="./php/home.php" id="loginForm">
+                                    <form method="POST" action="./php/myFeed.php" id="loginForm">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-12 col-lg-6">
@@ -135,7 +125,7 @@ session_start();
                     <section id="forms" >
                             <div class="col-12">
                                 <div class="card">
-                                    <form method="POST"  action="./php/home.php" id="registerForm">
+                                    <form method="POST" action="./php/myFeed.php" id="registerForm">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-12 col-lg-6">

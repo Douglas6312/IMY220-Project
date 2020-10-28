@@ -11,7 +11,7 @@ $(document).ready(() =>{
         if (email.length != 0 && pass.length != 0)
         {
             $.ajax({
-                url: './php/checkCredentials.php',
+                url: './php/fragments/checkCredentials.php',
                 type: 'POST',
                 data: {logEmail: email, logPass: pass},
                 beforeSend:function () {
@@ -27,7 +27,8 @@ $(document).ready(() =>{
                 if (json.msg === "Valid")
                 {
                     //localStorage.setItem("userDetails",JSON.stringify(json));
-                    window.location.href="./php/home.php";
+                    console.log("yaaaayyyy");
+                    window.location.href="./php/myFeed.php";
                 }
                 else
                 {
@@ -161,7 +162,7 @@ $(document).ready(() =>{
         if (regExCheck)
         {
             $.ajax({
-                url: './php/checkCredentials.php',
+                url: './php/fragments/checkCredentials.php',
                 type: 'POST',
                 data: {regName: name, regBio: bio,regEmail: email, regDob: dob, regPass1: pass1},
                 beforeSend:function () {
@@ -178,7 +179,7 @@ $(document).ready(() =>{
                 if (json.msg === "Valid")
                 {
                     //localStorage.setItem("userDetails",JSON.stringify(json));
-                    window.location.href="./php/home.php";
+                    window.location.href="./php/myFeed.php";
                 }
                 else
                 {

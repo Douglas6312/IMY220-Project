@@ -1,5 +1,7 @@
 $(document).ready(() =>{
 
+    $("#feedLink").addClass("active activeLine");
+
     //TODO asynchronously load the post for the user
     //TODO create a infinite scroll that keeps loading new content
     //TODO show a loading symbol while the data is being fetched

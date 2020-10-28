@@ -199,8 +199,6 @@ i.fa-angle-right{
 #AdditionalFooterInfo
 {
     background: url("../assets/pic1.jpg") top right;
-    /*filter: blur(8px);*/
-    /*-webkit-filter: blur(8px);*/
     width: 100%;
     height: 100vh;
     background-size: cover;
@@ -233,6 +231,17 @@ html::-webkit-scrollbar {
 
 .leftArrow{
     color: black;
+}
+
+.dropdown-item:active:focus{
+    background: #34b7a7;
+}
+
+#heading{
+    margin-top: 6em;
+    margin-left: 8%;
+    margin-right: 8%;
+    border-bottom: 12px solid #34b7a7;
 }
 
 

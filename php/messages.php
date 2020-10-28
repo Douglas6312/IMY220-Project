@@ -4,26 +4,27 @@ include "./fragments/globals.php";
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Explore</title>
+    <title>My Messages</title>
     <meta charset="utf-8" />
     <meta name="author" content="Douglas van Reeuwyk">
     <?php include "./fragments/cssLibraries.php" ?>
-    <link rel="stylesheet" type="text/css" href="../css/explore.css" />
-    <link rel="stylesheet" type="text/css" href="../css/postsFragment.css" />
+    <link rel="stylesheet" type="text/css" href="../css/messages.css" />
 </head>
 <body>
 
 <?php include "./fragments/navbarFragment.php" ?>
 
 <div  id="heading">
-    <h1>Explore</h1>
+    <h1>My Messages</h1>
 </div>
 
-
-<?php include "./fragments/postsFragment.php" ?>
+<main id="myFeed" class="container-fluid">
+    <div class="row">
+        Content Goes HERE....
+    </div>
+</main>
 
     <?php include "./fragments/jsLibraries.php" ?>
-    <script src="../js/explore.js"></script>
-    <script src="../js/postsFragment.js"></script>
+    <script src="../js/messages.js"></script>
 </body>
 </html>
