@@ -2,10 +2,6 @@ $(document).ready(() =>{
 
     $("#postLink").addClass("active activeLine");
 
-    $(".middle").on('click',function () {
-        window.location.href = "./post.php";
-        //get data here and go to the actual post data....
-    });
 
     $("#regPicture").on('change', function (e) {
         var file = $("input[type=file]").get(0).files[0];
@@ -21,9 +17,13 @@ $(document).ready(() =>{
 
 
     $('#newPost_View').on('shown.bs.modal', function(){
-        $('#myFeed,#heading,#topHeader,#newFab').addClass("blurBackground");
+        $('.pageContent,.heading,#topHeader,#newFab,#infoMsg').addClass("blurBackground");
     }).on('hidden.bs.modal', function () {
-        $('#myFeed,#heading,#topHeader,#newFab').removeClass("blurBackground");
+        $('.pageContent,.heading,#topHeader,#newFab,#infoMsg').removeClass("blurBackground");
     });
+
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
 
 });

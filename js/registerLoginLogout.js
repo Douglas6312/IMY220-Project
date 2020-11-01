@@ -5,18 +5,21 @@ $(document).ready(() =>{
 
         $('#loginWarning').remove();
         $('input').removeClass('inputWarning');
+        $("#loginEmail,#loginPass").removeClass("is-invalid");
+        $(".msg").remove();
+
+
         const email = $('#loginEmail').val();
         const pass = $('#loginPass').val();
 
-        if (email.length != 0 && pass.length != 0)
+        if (email.length !== 0 && pass.length !== 0)
         {
             $.ajax({
                 url: './php/fragments/checkCredentials.php',
                 type: 'POST',
                 data: {logEmail: email, logPass: pass},
                 beforeSend:function () {
-                    $('#loginBtn i').removeClass("fa fa-angle-right");
-                    $('#loginBtn i').addClass("fa fa-hourglass");
+                    $('#loginBtn i').removeClass("fa fa-angle-right").addClass("fa fa-hourglass");
                     $('#loginBtn').attr("disabled",true);
                 }
             }).done(response => {
@@ -27,8 +30,7 @@ $(document).ready(() =>{
                 if (json.msg === "Valid")
                 {
                     //localStorage.setItem("userDetails",JSON.stringify(json));
-                    console.log("yaaaayyyy");
-                    window.location.href="./php/myFeed.php";
+                    window.location.href="./php/feed.php";
                 }
                 else
                 {
@@ -47,11 +49,21 @@ $(document).ready(() =>{
                     $('input').toggleClass('inputWarning');
                 }
             }).always(() => {
-                $('#loginBtn i').removeClass("fa fa-hourglass");
-                $('#loginBtn i').addClass("fa fa-angle-right");
+                $('#loginBtn i').removeClass("fa fa-hourglass").addClass("fa fa-angle-right");
                 $('#loginBtn').attr("disabled",false);
                 $("#splash").addClass("blurBackground");
             })
+        }
+        else
+        {   if (email.length === 0 && pass.length === 0)
+            {
+                $("#loginEmail").addClass("is-invalid").after("<div class='msg invalid-feedback'>Enter Email</div>");
+                $("#loginPass").addClass("is-invalid").after("<div class='msg invalid-feedback'>Enter Password</div>");
+            }
+            else if (email.length === 0)
+                $("#loginEmail").addClass("is-invalid").after("<div class='msg invalid-feedback'>Enter Email</div>");
+            else if(pass.length === 0)
+                $("#loginPass").addClass("is-invalid").after("<div class='msg invalid-feedback'>Enter Password</div>");
         }
     });
 
@@ -63,10 +75,11 @@ $(document).ready(() =>{
         $("#nameWarning").remove();
         $("#emailWarning").remove();
         $("#passwordWarning").remove();
-        $('#pass1').removeClass('inputWarning');
-        $('#pass2').removeClass('inputWarning');
-        $('#regName').removeClass('inputWarning');
-        $('#regEmail').removeClass('inputWarning');
+        $('#pass1').removeClass('inputWarning').removeClass("is-invalid");
+        $('#pass2').removeClass('inputWarning').removeClass("is-invalid");
+        $('#regName').removeClass('inputWarning').removeClass("is-invalid");
+        $('#regEmail').removeClass('inputWarning').removeClass("is-invalid");
+        $(".msg").remove();
 
         const name = $('#regName').val();
         const bio = $('#regBio').val();
@@ -81,44 +94,21 @@ $(document).ready(() =>{
 
         if ( name.length === 0 || !regexName.test(name))
         {
-            $("#nameWarning").remove();
-
-            $('<div></div>',{
-                html:`<b>Invalid Name: </b>ONLY Letters and numbers
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                 </button>`,
-                class:"alert alert-warning alert-dismissible fade show",
-                id:"nameWarning",
-                role: "alert"
-            }).insertAfter($('#registerForm'));
-
-            $('#regName').toggleClass('inputWarning');
-
+            $("#regName").addClass("is-invalid").after("<div class='msg invalid-feedback'>ONLY Letters and numbers</div>");
             regExCheck = false;
         }
 
         if ( email.length === 0 || !regexEmail.test(email))
         {
-            $("#emailWarning").remove();
-
-            $('<div></div>',{
-                html:`<b>Invalid Email</b>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                 </button>`,
-                class:"alert alert-warning alert-dismissible fade show",
-                id:"emailWarning",
-                role: "alert"
-            }).insertAfter($('#registerForm'));
-
-            $('#regEmail').toggleClass('inputWarning');
-
+            $("#regEmail").addClass("is-invalid").after("<div class='msg invalid-feedback'>Invalid Email</div>");
             regExCheck = false;
         }
 
         if ( (pass1.length === 0 || !regexPassword.test(pass1)) || (pass2.length === 0 || !regexPassword.test(pass2)) )
         {
+            $("#pass1").addClass("is-invalid").after("<div class='msg invalid-feedback'>Invalid Password</div>");
+            $("#pass2").addClass("is-invalid").after("<div class='msg invalid-feedback'>Invalid Password</div>");
+
             $("#passwordWarning").remove();
 
             $('<div></div>',{
@@ -135,27 +125,10 @@ $(document).ready(() =>{
             $('#pass2').toggleClass('inputWarning');
 
             regExCheck = false;
-        }
-
-        if (pass1 !== pass2)
+        }  else if (pass1 !== pass2)
         {
-            $("#loginWarning").remove();
-
-            $('<div></div>',{
-                html:`<b>Passwords dont match !!!<b/>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                 </button>`,
-                class:"alert alert-warning alert-dismissible fade show",
-                id:"loginWarning",
-                role: "alert"
-            }).insertAfter($('#registerForm'));
-
-            $('#pass1').removeClass('inputWarning');
-            $('#pass2').removeClass('inputWarning');
-            $('#pass1').toggleClass('inputWarning');
-            $('#pass2').toggleClass('inputWarning');
-
+            $("#pass1").addClass("is-invalid").after("<div class='msg invalid-feedback'>Passwords Don't Match</div>");
+            $("#pass2").addClass("is-invalid").after("<div class='msg invalid-feedback'>Passwords Don't Match</div>");
             regExCheck = false;
         }
 
@@ -166,8 +139,7 @@ $(document).ready(() =>{
                 type: 'POST',
                 data: {regName: name, regBio: bio,regEmail: email, regDob: dob, regPass1: pass1},
                 beforeSend:function () {
-                    $('#registerBtn i').removeClass("fa fa-angle-right");
-                    $('#registerBtn i').addClass("fa fa-hourglass");
+                    $('#registerBtn i').removeClass("fa fa-angle-right").addClass("fa fa-hourglass");
                     $('#registerBtn').attr("disabled",true);
                 }
             }).done(response => {
@@ -179,7 +151,7 @@ $(document).ready(() =>{
                 if (json.msg === "Valid")
                 {
                     //localStorage.setItem("userDetails",JSON.stringify(json));
-                    window.location.href="./php/myFeed.php";
+                    window.location.href="./php/feed.php";
                 }
                 else
                 {
@@ -196,23 +168,22 @@ $(document).ready(() =>{
                     }).insertAfter($('#registerForm'));
                 }
             }).always(() => {
-                $('#registerBtn i').removeClass("fa fa-hourglass");
-                $('#registerBtn i').addClass("fa fa-angle-right");
+                $('#registerBtn i').removeClass("fa fa-hourglass").addClass("fa fa-angle-right");
                 $('#registerBtn').attr("disabled",false);
             });
         }
     });
 
     $('#login_view').on('shown.bs.modal', function(){
-        $('#splash').addClass("blurBackground");
+        $('#splash,#AdditionalFooterInfo,#topHeader').addClass("blurBackground");
     }).on('hidden.bs.modal', function () {
-        $('#splash').removeClass("blurBackground");
+        $('#splash,#AdditionalFooterInfo,#topHeader').removeClass("blurBackground");
     });
 
     $('#register_view').on('shown.bs.modal', function(){
-        $('#splash').addClass("blurBackground");
+        $('#splash,#AdditionalFooterInfo,#topHeader').addClass("blurBackground");
     }).on('hidden.bs.modal', function () {
-        $('#splash').removeClass("blurBackground");
+        $('#splash,#AdditionalFooterInfo,#topHeader').removeClass("blurBackground");
     });
 
 });

@@ -7,31 +7,39 @@ include "./fragments/globals.php";
     <title>My Albums</title>
     <meta charset="utf-8" />
     <meta name="author" content="Douglas van Reeuwyk">
-    <?php include "./fragments/cssLibraries.php" ?>
+    <?php include "./fragments/cssLibraries.php"; ?>
     <link rel="stylesheet" type="text/css" href="../css/albums.css" />
     <link rel="stylesheet" type="text/css" href="../css/albumsFragment.css" />
 </head>
 <body>
 
-<?php include "./fragments/navbarFragment.php" ?>
+<?php include "./fragments/navbarFragment.php"; ?>
 
-<div  id="heading">
+<div  class="heading">
     <h1>My Albums</h1>
 </div>
 
-<!--TODO having loading symbol while the main content (My Feed) get populated from tge DB and js-->
-<!--TODO clearly show how you can edit a album and add new friends and change the details-->
-<!--TODO the user who created the album is only able to edit the album -->
-<!--TODO clearly show some how if the album is a shared album with friends  -->
-<!--TODO Or whether it is a personal one  -->
-<!--TODO Also display weather it is public or private  -->
-<!--TODO Cover page should describe the album and have a pic of the first pic in that album as its cover page...  -->
-<!--TODO NB!!!! First create the Album the you can give friends access after it has been created.. (add one at a time...)  -->
+<?php
+$query1 = "SELECT *
+    FROM tbalbum
+    WHERE userID = ".$_SESSION['userID']."
+    ORDER BY timeStamp DESC;";
 
-<?php include "./fragments/albumsFragment.php" ?>
+$query2 = "SELECT *
+    FROM tbalbum
+    INNER JOIN tbalbumparticipant ON tbalbum.albumID = tbalbumparticipant.albumID
+    WHERE tbalbum.userID = ".$_SESSION['userID']." OR tbalbumparticipant.userID = ".$_SESSION['userID']."
+    ORDER BY tbalbum.timeStamp DESC;";
+
+$infoMsg = "Oooops, Looks like you dont have any Albums. Create your first Album by clicking the plus in the bottom right";
+
+include "./fragments/albumsFragment.php";
+?>
+
+
 
 <section id="newAlbum">
-    <a class="fab" data-toggle="modal" data-target="#newAlbum_View"> + </a>
+    <a class="fab" id="newFab" data-toggle="modal" data-target="#newAlbum_View"> + </a>
 </section>
 
 <div class="modal fade product_view" id="newAlbum_View">
@@ -46,12 +54,12 @@ include "./fragments/globals.php";
                     <section id="forms" >
                         <div class="col-12">
                             <div class="card">
-                                <form method="POST" action="#"> <!--action="./php/albun.php"-->
+                                <form method="POST" action="">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <label for="regName">Name:</label>
-                                                <input type="text" id="regName" class="form-control" placeholder="favourites" name="regName" autocomplete="off" required>
+                                                <label for="regTitle">Title:</label>
+                                                <input type="text" id="regTitle" class="form-control" placeholder="favourites" name="regTitle" autocomplete="off" required>
                                             </div>
                                             <div class="col-12 col-lg-6">
                                                 <label for="regDescription">Description:</label>
@@ -60,13 +68,18 @@ include "./fragments/globals.php";
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-12 col-lg-6">
+                                                <label for="regHashtags">Hashtags:</label>
+                                                <input type="text" id="regHashtags" class="form-control" placeholder="#awesome #YOLO #LOL" name="regHashtags" autocomplete="off" required>
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                                <br/>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                                    <label class="form-check-label" for="inlineRadio1"><i class="fa fa-lock" aria-hidden="true"></i> Private</label>
+                                                    <input class="form-check-input" type="radio" name="privacyOption" id="inlineRadio1" value="public" checked>
+                                                    <label class="form-check-label" for="inlineRadio1"><i class="fa fa-unlock" aria-hidden="true"></i> Public</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" checked>
-                                                    <label class="form-check-label" for="inlineRadio2"><i class="fa fa-unlock" aria-hidden="true"></i> Public</label>
+                                                    <input class="form-check-input" type="radio" name="privacyOption" id="inlineRadio2" value="private">
+                                                    <label class="form-check-label" for="inlineRadio2"><i class="fa fa-lock" aria-hidden="true"></i> Private</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -86,9 +99,69 @@ include "./fragments/globals.php";
     </div>
 </div>
 
-    <?php include "./fragments/jsLibraries.php" ?>
-    <script src="../js/albums.js"></script>
-    <script src="../js/albumsFragment.js"></script>
+<?php
+
+    if (isset($_POST["regTitle"]) && isset($_POST["regDescription"]) && isset($_POST["regHashtags"]) && isset($_POST["privacyOption"]))
+    {
+        $successfullyAdded = true;
+
+        $privacy = $_POST['privacyOption'];
+        $userID = $_SESSION['userID'];
+        $regTitle = $_POST['regTitle'];
+        $regDescription = $_POST['regDescription'];
+        $regHashtags = $_POST['regHashtags'];
+        $query = "INSERT INTO tbalbum (userID, title, description, privacy,timeStamp) VALUES ('$userID', '$regTitle', '$regDescription', '$privacy', NOW());";
+        $res = $mysqli->query($query);
+        if (!$res)
+            $successfullyAdded = false;
+
+        $newAlbumID = $mysqli->insert_id;
+        if ($successfullyAdded)
+        {
+            function getHashtagsd($hashtags)
+            {
+                preg_match_all("/(#\w+)/u", $hashtags, $matches);
+
+                if ($matches)
+                {
+                    return $matches[0];
+                }
+            }
+
+            $hashtagarray = getHashtagsd($regHashtags);
+            //print_r($hashtagarray);
+            for($i = 0; $i < count($hashtagarray); $i++)
+            {
+                $query = "INSERT INTO tbalbumhashtag(albumID,hashtag) VALUES ('$newAlbumID','".$hashtagarray[$i]."')";
+                $res = $mysqli->query($query);
+                if (!$res)
+                    $successfullyAdded = false;
+            }
+        }
+
+        if (!$successfullyAdded)
+        {
+            echo '<br/><br/>
+            <div class="container">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Something went wrong, please try again later</strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+            </div>';
+        }
+        else
+        {
+            echo "<meta http-equiv='refresh' content='0'>";
+        }
+    }
+?>
+
+<?php include "./fragments/jsLibraries.php"; ?>
+<script src="../js/albums.js"></script>
+<script src="../js/albumsFragment.js"></script>
+
 </body>
 </html>
 

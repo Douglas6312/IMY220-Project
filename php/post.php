@@ -7,16 +7,16 @@ include "./fragments/globals.php";
     <title>Home</title>
     <meta charset="utf-8" />
     <meta name="author" content="Douglas van Reeuwyk">
-    <?php include "./fragments/cssLibraries.php" ?>
+    <?php include "./fragments/cssLibraries.php"; ?>
     <link rel="stylesheet" type="text/css" href="../css/post.css" />
 </head>
 <body>
 
-<?php include "./fragments/navbarFragment.php" ?>
+<?php include "./fragments/navbarFragment.php"; ?>
 
-<div  id="heading">
+<div  class="heading">
     <!--TODO add a back arrow here to go bach to the feed...-->
-    <h1><a href="#" id="goBack"><i class="fa fa-arrow-left leftArrow" aria-hidden="true"></i></a> Post</h1>
+    <h1><a href="#" class="goBack"><i class="fa fa-arrow-left text-secondary" aria-hidden="true"></i></a> Post</h1>
 </div>
 
 <!--TODO add functionality to:  -->
@@ -26,7 +26,7 @@ include "./fragments/globals.php";
 <!--TODO Add it to an album  -->
 <!--TODO Refine my design etc... -->
 
-<main id="myFeed" class="container-fluid">
+<main class="container-fluid pageContent">
     <div class="row">
         <img src="../gallery/mountainskies.jpg" class="col-8">
         <div class="col-4">
@@ -93,7 +93,7 @@ include "./fragments/globals.php";
 </main>
 
 
-    <?php include "./fragments/jsLibraries.php" ?>
+    <?php include "./fragments/jsLibraries.php"; ?>
     <script src="../js/post.js"></script>
 </body>
 </html>

@@ -237,13 +237,20 @@ html::-webkit-scrollbar {
     background: #34b7a7;
 }
 
-#heading{
+.heading{
     margin-top: 6em;
     margin-left: 8%;
     margin-right: 8%;
     border-bottom: 12px solid #34b7a7;
 }
 
+.pageContent{
+    padding-left: 8%;
+    padding-right: 8%;
+    padding-top: 2%;
+}
 
-
-
+.pageContent2{
+    padding-left: 8%;
+    padding-right: 8%;
+}

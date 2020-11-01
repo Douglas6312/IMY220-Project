@@ -1,10 +1,23 @@
-#myAlbums{
-    padding-left: 8%;
-    padding-right: 8%;
-    padding-top: 2%;
-}
-
 a.albumCar{
     text-decoration: none;
     color: black;
+}
+
+.imgPreview
+{
+    height: 4em;
+    display: flex;
+}
+.imgPreview img
+{
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    display: block;
+    flex: 33.33%;
+    padding: 1px;
+}
+
+.privacyIcon{
+    float: right;
 }

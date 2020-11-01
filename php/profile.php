@@ -7,16 +7,16 @@ include "./fragments/globals.php";
     <title>My Profile</title>
     <meta charset="utf-8" />
     <meta name="author" content="Douglas van Reeuwyk">
-    <?php include "./fragments/cssLibraries.php" ?>
-    <link rel="stylesheet" type="text/css" href="../css/myProfile.css" />
+    <?php include "./fragments/cssLibraries.php"; ?>
+    <link rel="stylesheet" type="text/css" href="../css/profile.css" />
 </head>
 <body>
 
-<?php include "./fragments/navbarFragment.php" ?>
+<?php include "./fragments/navbarFragment.php"; ?>
 
 <!--TODO functionality where admins can manage and edit all the necessary things they need to !!!!! -->
 
-<div  id="heading">
+<div  class="heading">
     <h1> My Profile</h1>
 </div>
 
@@ -47,8 +47,8 @@ include "./fragments/globals.php";
     </div>
 </main>
 
-    <?php include "./fragments/jsLibraries.php" ?>
-    <script src="../js/myProfile.js"></script>
+    <?php include "./fragments/jsLibraries.php"; ?>
+    <script src="../js/profile.js"></script>
 </body>
 </html>
 

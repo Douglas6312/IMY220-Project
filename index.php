@@ -83,7 +83,7 @@ session_start();
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-                                    <form method="POST" action="./php/myFeed.php" id="loginForm">
+                                    <form method="POST" action="./php/feed.php" id="loginForm">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-12 col-lg-6">
@@ -125,7 +125,7 @@ session_start();
                     <section id="forms" >
                             <div class="col-12">
                                 <div class="card">
-                                    <form method="POST" action="./php/myFeed.php" id="registerForm">
+                                    <form method="POST" action="./php/feed.php" id="registerForm">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-12 col-lg-6">

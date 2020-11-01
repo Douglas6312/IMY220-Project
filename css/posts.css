@@ -23,14 +23,6 @@ a.fab {
     cursor: pointer;
 }
 
-#heading{
-    margin-top: 6em;
-    margin-left: 8%;
-    margin-right: 8%;
-    border-bottom: 12px solid #34b7a7;
-
-}
-
 .fa-remove{
     color: white;
 }

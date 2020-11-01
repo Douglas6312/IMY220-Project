@@ -1,10 +1,18 @@
 <?php
 session_start();
-if(!isset($_SESSION['userID']))
+if(!isset($_SESSION['userID']) || (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)))// last request was more than 30 minutes ago
 {
     session_unset();
     session_destroy();
     header("Location:../index.php");
+}
+$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+if (time() - $_SESSION['CREATED'] > 1200)
+{
+    // session started more than 20 minutes ago
+    // change session ID for the current session and invalidate old session ID, to stop session fixation attacks
+    session_regenerate_id(true);
+    $_SESSION['CREATED'] = time();  // update creation time
 }
 
 // See all errors and warnings
@@ -16,6 +24,12 @@ $username = "root"; //u19049782
 $password = ""; //ivypudta
 $database = "dbu19049782";
 $mysqli = new mysqli($server, $username, $password, $database);
+
+//if ($mysqli->ping()) {
+//    printf ("Our connection is ok!\n");
+//} else {
+//    printf ("Error: %s\n", $mysqli->error);
+//}
 
 if ($mysqli->connect_errno)
 {
@@ -32,6 +46,8 @@ if ($res && $res->num_rows > 0)
 {
     $numUnreadMessages = $res->num_rows;
 }
+
+//TODO  echo htmlspecialchars($_POST['name'] ?? '', ENT_QUOTES);  (for security reasons its better to do it like this !!!!!)
 
 //TODO make sure to close the connection once done... (where would i do this ???) $mysqli->close();
 

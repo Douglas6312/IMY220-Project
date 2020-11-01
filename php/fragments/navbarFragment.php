@@ -2,7 +2,7 @@
     <div class="container-fluid d-flex justify-content-between align-items-center">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-lg-0">
 
-            <a class="navbar-brand ml-2" href="./myFeed.php">
+            <a class="navbar-brand ml-2" href="./feed.php">
                 <h1 class="logo"><img src="../assets/logo1.png" alt="logo" class="img-fluid">PhotoFrames</h1>
             </a>
 
@@ -17,7 +17,7 @@
 
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto mr-auto">
-                    <li class="nav-item mx-1" id="feedLink"><a class="nav-link" href="./myFeed.php">My Feed</a></li>
+                    <li class="nav-item mx-1" id="feedLink"><a class="nav-link" href="./feed.php">My Feed</a></li>
                     <li class="nav-item mx-1" id="postLink"><a class="nav-link" href="./posts.php">My Posts</a></li>
                     <li class="nav-item mx-1" id="albumLink"><a class="nav-link" href="./albums.php">My Albums</a></li>
                     <li class="nav-item mx-1" id="exploreLink"><a class="nav-link" href="./explore.php">Explore</a></li>
@@ -32,7 +32,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="profileDropdownLink" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['userName'] ?></a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="./myProfile.php">View Profile</a>
+                            <a class="dropdown-item" href="./profile.php">View Profile</a>
                             <?php
                             if ($_SESSION['userType'] == "admin")
                             {

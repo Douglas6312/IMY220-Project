@@ -20,7 +20,7 @@ $regEmail = test_input(isset($_POST["regEmail"]) ? $_POST["regEmail"] : false);
 $regDob = test_input(isset($_POST["regDob"]) ? $_POST["regDob"] : false);
 $regPass1 = test_input(isset($_POST["regPass1"]) ? $_POST["regPass1"] : false);
 
-sleep(0.5);
+sleep(1);
 
 if(!$mysqli->connect_errno) //check if the connection to the DB was successful
 {
@@ -68,6 +68,8 @@ if(!$mysqli->connect_errno) //check if the connection to the DB was successful
                     $_SESSION['userName'] = $name;
                     $_SESSION['userProfileImg'] = $profileImage;
                     $_SESSION['userType'] = $userType;
+                    $_SESSION['LAST_ACTIVITY'] = time();
+                    $_SESSION['CREATED'] = time();
 
                     $mysqli->close();
                     echo $json;
@@ -125,6 +127,8 @@ if(!$mysqli->connect_errno) //check if the connection to the DB was successful
                 $_SESSION['userName'] = $name;
                 $_SESSION['userProfileImg'] = $profileImage;
                 $_SESSION['userType'] = $userType;
+                $_SESSION['LAST_ACTIVITY'] = time();
+                $_SESSION['CREATED'] = time();
 
                 $mysqli->close();
                 echo $json;
