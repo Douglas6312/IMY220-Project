@@ -214,15 +214,15 @@ if (isset($_POST["regTitle"]) && isset($_POST["regCaption"]) && isset($_POST["re
             $successfullyAdded = true;
 
             $userID = $_SESSION['userID'];
-            $regTitle = $_POST['regTitle'];
-            $regCaption = $_POST['regCaption'];
-            $regHashtags = $_POST['regHashtags'];
-            $regAlbum = $_POST['regAlbum'];
-            $regISO = $_POST['regISO'];
-            $regShutter = $_POST['regShutter'];
-            $regFStop = $_POST['regFStop'];
-            $regLens = $_POST['regLens'];
-            $regPicture = $_POST['regPicture'];
+            $regTitle =  test_input($_POST['regTitle']);
+            $regCaption =  test_input($_POST['regCaption']);
+            $regHashtags =  test_input($_POST['regHashtags']);
+            $regAlbum =  test_input($_POST['regAlbum']);
+            $regISO =  test_input($_POST['regISO']);
+            $regShutter =  test_input($_POST['regShutter']);
+            $regFStop =  test_input($_POST['regFStop']);
+            $regLens =  test_input($_POST['regLens']);
+            $regPicture =  test_input($_POST['regPicture']);
             $query = "INSERT INTO tbpost (userID, title, caption, timeStamp, fileLocation, iso, shutterSpeed, fStop, lens, albumID) VALUES ('$userID', '$regTitle', '$regCaption', NOW(), '$target_file',
                         '$regISO','$regShutter','$regFStop','$regLens','$regAlbum');";
 

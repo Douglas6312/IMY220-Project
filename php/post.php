@@ -15,16 +15,8 @@ include "./fragments/globals.php";
 <?php include "./fragments/navbarFragment.php"; ?>
 
 <div  class="heading">
-    <!--TODO add a back arrow here to go bach to the feed...-->
     <h1><a href="#" class="goBack"><i class="fa fa-arrow-left text-secondary" aria-hidden="true"></i></a> Post</h1>
 </div>
-
-<!--TODO add functionality to:  -->
-<!--TODO Report Post (with  a dropdown list of reasons ) (which can be edited by admins...) -->
-<!--TODO have three dots in conner then it expands to options where you then can report, add to album etc....-->
-<!--TODO maybe re-order the info so that the likes, comments and report is similar to Instagram NB!!!!!!!!! -->
-<!--TODO Add it to an album  -->
-<!--TODO Refine my design etc... -->
 
 <main class="container-fluid pageContent">
     <div class="row">

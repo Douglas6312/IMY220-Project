@@ -34,11 +34,11 @@ if (isset($_GET['hashtag']))
 {
     $_SESSION['searchBy'] = 'hashtag';
 }
-elseif (isset($_POST['searchValue']))
+elseif (isset($_POST['searchBy']))
 {
     $_SESSION['searchBy']  = $_POST['searchBy'];
 }
-elseif (!isset($_SESSION['searchValue']))
+elseif (!isset($_SESSION['searchBy']))
 {
     $_SESSION['searchBy'] = 'explore';
 }
@@ -69,8 +69,8 @@ elseif (!isset($_SESSION['searchValue']))
 
      if( isset($_POST['searchBy']) || isset($_POST['searchValue']) )
     {
-        $_SESSION['searchBy'] =  isset($_POST['searchBy']) ? $_POST['searchBy'] : $_SESSION['searchBy'];
-        $_SESSION['searchValue'] = isset($_POST['searchValue']) ? $_POST['searchValue'] :  $_SESSION['searchValue'];
+        $_SESSION['searchBy'] =  isset($_POST['searchBy']) ? test_input($_POST['searchBy']) : $_SESSION['searchBy'];
+        $_SESSION['searchValue'] = isset($_POST['searchValue']) ? test_input($_POST['searchValue']) :  $_SESSION['searchValue'];
     }
 
     if(isset($_GET['hashtag']))
@@ -106,7 +106,7 @@ elseif (!isset($_SESSION['searchValue']))
         echo '<script type="text/javascript">location.href = \'./explore.php\';</script>';
 
     }
-    if ($_SESSION['searchBy'] === 'explore')
+    if (isset($_SESSION['searchBy']) && $_SESSION['searchBy']  === 'explore')
     {
         $query = "SELECT imageID,userID,title,caption,stars,timeStamp,fileLocation,privacy,iso,shutterSpeed,fStop,lens,albumID
                     FROM tbpost
@@ -124,14 +124,14 @@ elseif (!isset($_SESSION['searchValue']))
         $_SESSION['searchValue'] = '';
 
     }
-    if ($_SESSION['searchBy'] === 'post')
+    if ( isset($_SESSION['searchBy']) && $_SESSION['searchBy'] === 'post')
     {
         $infoMsg = "Oooops, Looks like we could not find the Post with the description ".$_SESSION['searchValue'];
         echo '<div class="heading mt-3">
                 <h1>Posts</h1>
             </div>';
 
-        if ($_SESSION['searchValue'] !== '')
+        if (isset($_SESSION['searchValue']) && $_SESSION['searchValue'] !== '')
         {
             $query = "SELECT *
             FROM tbpost
@@ -145,14 +145,14 @@ elseif (!isset($_SESSION['searchValue']))
         }
 
     }
-    if ($_SESSION['searchBy'] === 'album')
+    if ( isset($_SESSION['searchBy']) && $_SESSION['searchBy'] === 'album')
     {
         $infoMsg = "Oooops, Looks like we could not find the Album with the description ".$_SESSION['searchValue'];
         echo '<div class="heading mt-3">
                 <h1>Albums</h1>
             </div>';
 
-        if ($_SESSION['searchValue'] !== '')
+        if (isset($_SESSION['searchValue']) && $_SESSION['searchValue'] !== '')
         {
             $query1 = "SELECT *
             FROM tbalbum
@@ -166,13 +166,13 @@ elseif (!isset($_SESSION['searchValue']))
         }
 
     }
-    if ($_SESSION['searchBy'] === 'user')
+    if ( isset($_SESSION['searchBy']) && $_SESSION['searchBy'] === 'user')
     {
         echo '<div class="heading mt-3">
                 <h1>Users</h1>
             </div>';
 
-        if ($_SESSION['searchValue'] !== '')
+        if (isset($_SESSION['searchValue']) && $_SESSION['searchValue'] !== '')
         {
             $query = "SELECT *
             FROM tbuser
@@ -189,7 +189,7 @@ elseif (!isset($_SESSION['searchValue']))
                             <div class="card">
                                 <div class="card-header">
                                     <div class="row">
-                                        <div class="col-10 float-left align-self-center"><h2>'.$row['name'].'</h2></div>
+                                        <div class="col-10 float-left align-self-center text-dark"><h2>'.$row['name'].'</h2><small>'.$row['email'].'</small></div>
                                         <div class="col-2"><img class="float-right" src="../gallery/profilePics/'.$row['profileImage'].'" height="80"></div>
                                     </div>
                                 </div>
@@ -226,11 +226,11 @@ elseif (!isset($_SESSION['searchValue']))
         }
 
     }
-    else if ($_SESSION['searchBy'] === 'hashtag' && !isset($_GET['hashtag']))
+    else if ( isset($_SESSION['searchBy']) && $_SESSION['searchBy'] === 'hashtag' && !isset($_GET['hashtag']))
     {
         $infoMsg = "Oooops, Looks like no match was found for your search for ".$_SESSION['searchValue'];
 
-        if ($_SESSION['searchValue'] !== '')
+        if (isset($_SESSION['searchValue']) && $_SESSION['searchValue'] !== '')
         {
             echo '<div class="heading mt-3">
                     <h1>Posts</h1>
@@ -267,7 +267,7 @@ elseif (!isset($_SESSION['searchValue']))
         }
 
     }
-    else if ($_SESSION['searchBy'] == 'all' && $_SESSION['searchValue'] !== '')
+    else if (isset($_SESSION['searchBy']) && $_SESSION['searchBy'] == 'all' && $_SESSION['searchValue'] !== '')
     {
 
     }

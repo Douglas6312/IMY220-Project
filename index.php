@@ -18,8 +18,6 @@ session_start();
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/main.css" />
 
-    <!-- TODO create a fall back for CND libraries if CND dont load.... -->
-
 </head>
 <body>
 
@@ -40,7 +38,7 @@ session_start();
     </div>
 </header>
 
-<section id="splash" class="d-flex align-items-center"> <!--TODO have main image cycle between top user post-->
+<section id="splash" class="d-flex align-items-center">
     <div class="row col-12">
         <div class="container d-flex flex-column align-items-center" id="splashInfo" data-aos="zoom-in" data-aos-delay="100">
             <h1 class="my-4">Where your talent Thrives</h1>

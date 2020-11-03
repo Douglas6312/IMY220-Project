@@ -14,15 +14,10 @@ include "./fragments/globals.php";
 
 <?php include "./fragments/navbarFragment.php"; ?>
 
-<!--TODO functionality where admins can manage and edit all the necessary things they need to !!!!! -->
 
 <div  class="heading">
     <h1> My Profile</h1>
 </div>
-
-<!--TODO Display to the user their userID and any other useful information...-->
-<!--TODO Look at Asg4 of how to edit the details in a nice modern way !!!!!!!!!!!-->
-<!--TODO Show followers, followong, as well as all my individual posts !! (Like Instagram)-->
 
 <main id="settings">
     <div class="row">

@@ -105,11 +105,11 @@ include "./fragments/albumsFragment.php";
     {
         $successfullyAdded = true;
 
-        $privacy = $_POST['privacyOption'];
-        $userID = $_SESSION['userID'];
-        $regTitle = $_POST['regTitle'];
-        $regDescription = $_POST['regDescription'];
-        $regHashtags = $_POST['regHashtags'];
+        $privacy = test_input($_POST['privacyOption']);
+        $userID = test_input($_SESSION['userID']);
+        $regTitle = test_input($_POST['regTitle']);
+        $regDescription = test_input($_POST['regDescription']);
+        $regHashtags = test_input($_POST['regHashtags']);
         $query = "INSERT INTO tbalbum (userID, title, description, privacy,timeStamp) VALUES ('$userID', '$regTitle', '$regDescription', '$privacy', NOW());";
         $res = $mysqli->query($query);
         if (!$res)
