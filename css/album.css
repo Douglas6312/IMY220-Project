@@ -1,0 +1,12 @@
+.adminBtn{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.friends{
+    max-height: 40em;
+    overflow-y: auto ;
+}
+
+
+

@@ -6,7 +6,6 @@ if(!isset($_SESSION['userID']) || (isset($_SESSION['LAST_ACTIVITY']) && (time() 
 {
     session_unset();
     session_destroy();
-    $mysqli->close();
     header("Location:../index.php");
 }
 $_SESSION['LAST_ACTIVITY'] = time();

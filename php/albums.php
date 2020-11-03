@@ -28,14 +28,15 @@ $query1 = "SELECT *
 $query2 = "SELECT *
     FROM tbalbum
     INNER JOIN tbalbumparticipant ON tbalbum.albumID = tbalbumparticipant.albumID
-    WHERE tbalbum.userID = ".$_SESSION['userID']." OR tbalbumparticipant.userID = ".$_SESSION['userID']."
+    WHERE tbalbumparticipant.userID = ".$_SESSION['userID']."
     ORDER BY tbalbum.timeStamp DESC;";
+
+//tbalbum.userID = ".$_SESSION['userID']." OR
 
 $infoMsg = "Oooops, Looks like you dont have any Albums. Create your first Album by clicking the plus in the bottom right";
 
 include "./fragments/albumsFragment.php";
 ?>
-
 
 
 <section id="newAlbum">
@@ -105,8 +106,8 @@ include "./fragments/albumsFragment.php";
     {
         $successfullyAdded = true;
 
+        $userID = $_SESSION['userID'];
         $privacy = test_input($_POST['privacyOption']);
-        $userID = test_input($_SESSION['userID']);
         $regTitle = test_input($_POST['regTitle']);
         $regDescription = test_input($_POST['regDescription']);
         $regHashtags = test_input($_POST['regHashtags']);

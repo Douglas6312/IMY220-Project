@@ -254,3 +254,10 @@ html::-webkit-scrollbar {
     padding-left: 8%;
     padding-right: 8%;
 }
+
+.jconfirm .jconfirm-box.jconfirm-type-blue
+{
+    border-top: solid 7px #34b7a7!important;
+    -webkit-animation-name: type-blue;
+    animation-name: type-blue;
+}

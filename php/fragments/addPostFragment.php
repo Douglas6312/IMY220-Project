@@ -53,7 +53,9 @@
                                                     {
                                                         echo '<option selected="selected" disabled="true">Select Album</option>';
 
-                                                        $query1 = "SELECT tbalbum.albumID, tbalbum.title
+                                                        $hasAlbums = false;
+
+                                                        /*$query1 = "SELECT tbalbum.albumID, tbalbum.title
                                                                     FROM tbalbum
                                                                     LEFT JOIN tbalbumparticipant ON tbalbum.albumID = tbalbumparticipant.albumID
                                                                     WHERE tbalbum.userID = ".$_SESSION['userID']." OR tbalbumparticipant.userID = ".$_SESSION['userID']. "
@@ -61,16 +63,38 @@
                                                                     SELECT tbalbum.albumID, tbalbum.title
                                                                     FROM tbalbum
                                                                     RIGHT JOIN tbalbumparticipant ON tbalbum.albumID = tbalbumparticipant.albumID
-                                                                    WHERE tbalbum.userID = ".$_SESSION['userID']." OR tbalbumparticipant.userID = ".$_SESSION['userID'];
-                                                        $res = $mysqli->query($query1);
+                                                                    WHERE tbalbum.userID = ".$_SESSION['userID']." OR tbalbumparticipant.userID = ".$_SESSION['userID'];*/
 
+                                                        $query1 = "SELECT *
+                                                                    FROM tbalbum
+                                                                    WHERE userID = ".$_SESSION['userID']."
+                                                                    ORDER BY timeStamp DESC;";
+
+                                                        $query2 = "SELECT *
+                                                                    FROM tbalbum
+                                                                    INNER JOIN tbalbumparticipant ON tbalbum.albumID = tbalbumparticipant.albumID
+                                                                    WHERE tbalbum.userID = ".$_SESSION['userID']." OR tbalbumparticipant.userID = ".$_SESSION['userID']."
+                                                                    ORDER BY tbalbum.timeStamp DESC;";
+
+                                                        $res = $mysqli->query($query1);
                                                         if ($res && $res->num_rows > 0)
                                                         {
                                                             while($row = $res->fetch_assoc()) {
                                                                 echo ' <option value="'.$row["albumID"].'">'.$row["title"].'</option>';
                                                             }
+                                                            $hasAlbums = true;
                                                         }
-                                                        else if($res->num_rows == 0)
+
+                                                        $res = $mysqli->query($query2);
+                                                        if ($res && $res->num_rows > 0)
+                                                        {
+                                                            while($row = $res->fetch_assoc()) {
+                                                                echo ' <option value="'.$row["albumID"].'">'.$row["title"].'</option>';
+                                                            }
+                                                            $hasAlbums = true;
+                                                        }
+
+                                                        if(!$hasAlbums)
                                                         {
                                                             $userID = $_SESSION['userID'];
                                                             $query2 = "INSERT INTO tbalbum (userID, title, description, privacy,timeStamp) VALUES ('$userID', 'Welcome Album', 'My First Album', 'private', NOW());";
@@ -222,7 +246,6 @@ if (isset($_POST["regTitle"]) && isset($_POST["regCaption"]) && isset($_POST["re
             $regShutter =  test_input($_POST['regShutter']);
             $regFStop =  test_input($_POST['regFStop']);
             $regLens =  test_input($_POST['regLens']);
-            $regPicture =  test_input($_POST['regPicture']);
             $query = "INSERT INTO tbpost (userID, title, caption, timeStamp, fileLocation, iso, shutterSpeed, fStop, lens, albumID) VALUES ('$userID', '$regTitle', '$regCaption', NOW(), '$target_file',
                         '$regISO','$regShutter','$regFStop','$regLens','$regAlbum');";
 
