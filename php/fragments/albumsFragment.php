@@ -45,7 +45,7 @@
                                             <div class="imgPreview">';
                                             $picQuery = "SELECT *
                                             FROM tbpost
-                                            WHERE albumID = ".$row["albumID"]."
+                                            WHERE albumID = ".$row["albumID"]." AND privacy != 'hidden'
                                             LIMIT 3;";
                                             $result = $mysqli->query($picQuery);
                                             if ($result && $result->num_rows > 0)
@@ -112,7 +112,7 @@
                                             <div class="imgPreview">';
                                             $picQuery = "SELECT *
                                             FROM tbpost
-                                            WHERE albumID = ".$row["albumID"]."
+                                            WHERE albumID = ".$row["albumID"]."  AND privacy != 'hidden'
                                             LIMIT 3;";
                                             $result = $mysqli->query($picQuery);
                                             if ($result && $result->num_rows > 0)

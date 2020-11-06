@@ -26,8 +26,8 @@ $(document).ready(() =>{
 
     $(".goBack").on('click',function (e) {
         e.preventDefault();
-        //window.history.back();
-        window.location.href = "./albums.php";
+        window.history.back();
+        //window.location.href = "./albums.php";
     });
 
     $("#deleteAlbum").on('click',function (e) {
@@ -39,7 +39,7 @@ $(document).ready(() =>{
             type: 'blue',
             typeAnimated: true,
             title: 'Delete Album',
-            content: 'Are you sure you want to Delete this Album',
+            content: 'Are you sure you want to permanently Delete this Album',
             buttons: {
                 Delete: function () {
                     $.ajax({
@@ -50,7 +50,6 @@ $(document).ready(() =>{
                         const json = JSON.parse(response);
                         if (json.msg === "Valid")
                         {
-                            $(this).html('Remove <i class="fa fa-times fa-2x" aria-hidden="true"></i>');
                             window.location.href = "./albums.php";
                         }
                         else
@@ -63,7 +62,7 @@ $(document).ready(() =>{
                                 type: 'blue',
                                 typeAnimated: true,
                                 title: 'Alert!',
-                                content: 'An Error occurred, user was not added as a participant to this album',
+                                content: 'An Error occurred, Album was not Deleted',
                             });
                         }
                     });
@@ -133,7 +132,5 @@ $(document).ready(() =>{
             });
         }
     });
-
-
 
 });

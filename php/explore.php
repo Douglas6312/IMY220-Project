@@ -40,7 +40,7 @@ elseif (isset($_POST['searchBy']))
 }
 elseif (!isset($_SESSION['searchBy']))
 {
-    $_SESSION['searchBy'] = 'explore';
+    $_SESSION['searchBy'] = 'global';
 }
 
 ?>
@@ -51,7 +51,7 @@ elseif (!isset($_SESSION['searchBy']))
         <form class="form-inline ml-auto" method="POST" action="./explore.php" id="exploreForm" name="exploreForm">
             <label for="searchBy" class="sr-only">Search By</label>
             <select class="form-control col-4" name="searchBy" id="searchBy" autocomplete="off" required>
-                <option value="explore" <?php if(isset($_SESSION['searchBy']) && $_SESSION['searchBy'] === 'explore'){echo 'selected' ;}else{ if(isset($_POST['searchBy']) && $_POST['searchBy'] === 'explore') echo 'selected' ;} ?> >Explore</option>
+                <option value="global" <?php if(isset($_SESSION['searchBy']) && $_SESSION['searchBy'] === 'global'){echo 'selected' ;}else{ if(isset($_POST['searchBy']) && $_POST['searchBy'] === 'global') echo 'selected' ;} ?> >Global</option>
                 <option value="post" <?php if(isset($_SESSION['searchBy']) && $_SESSION['searchBy'] === 'post'){echo 'selected' ;}else{ if(isset($_POST['searchBy']) && $_POST['searchBy'] === 'post') echo 'selected' ;} ?> >Post</option>
                 <option value="album" <?php if(isset($_SESSION['searchBy']) && $_SESSION['searchBy'] === 'album'){echo 'selected' ;}else{if(isset($_POST['searchBy']) && $_POST['searchBy'] === 'album') echo 'selected'; }; ?> >Album</option>
                 <option value="user" <?php if(isset($_SESSION['searchBy']) && $_SESSION['searchBy'] === 'user'){echo 'selected' ;}else{ if(isset($_POST['searchBy']) && $_POST['searchBy'] === 'user') echo 'selected' ;} ?> >User</option>
@@ -78,16 +78,15 @@ elseif (!isset($_SESSION['searchBy']))
         $_SESSION['searchValue'] =  $_GET['hashtag'];
         $_SESSION['searchBy'] = 'hashtag';
 
-        $infoMsg = "Oooops, Looks like no match was found for your search for #".$_SESSION['searchValue'];
-
         echo '<div class="heading mt-3">
                 <h1>Posts</h1>
             </div>';
 
+        $infoMsg = "Oooops, Looks like no Post was found for your search for #".$_SESSION['searchValue'];
         $query = "SELECT *
                 FROM tbpost
                 INNER JOIN tbposthashtag on tbpost.imageID = tbposthashtag.imageID
-                WHERE tbposthashtag.hashtag LIKE '%".$_SESSION['searchValue']."%' ;";
+                WHERE tbposthashtag.hashtag LIKE '%".$_SESSION['searchValue']."%' AND privacy = 'public' ;";
 
         include "./fragments/postsFragment.php";
 
@@ -95,6 +94,7 @@ elseif (!isset($_SESSION['searchBy']))
                 <h1>Albums</h1>
             </div>';
 
+        $infoMsg = "Oooops, Looks like no Album was found for your search for #".$_SESSION['searchValue'];
         $query1 = "SELECT *
                 FROM tbalbum
                 INNER JOIN tbalbumhashtag on tbalbum.albumID = tbalbumhashtag.albumID
@@ -106,20 +106,37 @@ elseif (!isset($_SESSION['searchBy']))
         echo '<script type="text/javascript">location.href = \'./explore.php\';</script>';
 
     }
-    if (isset($_SESSION['searchBy']) && $_SESSION['searchBy']  === 'explore')
+    if (isset($_SESSION['searchBy']) && $_SESSION['searchBy']  === 'global')
     {
-        $query = "SELECT imageID,userID,title,caption,stars,timeStamp,fileLocation,privacy,iso,shutterSpeed,fStop,lens,albumID
-                    FROM tbpost
-                    INNER JOIN tbfollower ON tbpost.userID = tbfollower.userIDFollowing
-                    WHERE tbfollower.userIDFollower != ".$_SESSION['userID']." AND privacy ='public'
-                    UNION ALL
-                    SELECT imageID,userID,title,caption,stars,timeStamp,fileLocation,privacy,iso,shutterSpeed,fStop,lens,albumID
-                    FROM tbpost
-                    WHERE userID !=  ".$_SESSION['userID']." AND privacy ='public'
-                    ORDER BY timeStamp DESC;";
+        echo '<div class="heading mt-3">
+                <h1>Global Feed</h1>
+            </div>';
 
-        $infoMsg = "Oooops, Looks like we dont have any global feed to show you.";
+        /*$query = "SELECT *
+                FROM tbpost
+                WHERE privacy = 'public' AND  userID !=  '".$_SESSION['userID']."' AND userID NOT IN (SELECT userIDFollowing FROM tbfollower WHERE userIDFollower = ".$_SESSION['userID'].")
+                ORDER BY timeStamp DESC;";*/
+
+        echo '<div class="heading mt-3">
+                <h1>Posts</h1>
+            </div>';
+
+        $query = "SELECT *
+                FROM tbpost
+                WHERE privacy = 'public'
+                ORDER BY timeStamp DESC;";
+
+        $infoMsg = "Oooops, Looks like we dont have any Posts to Display.";
         include "./fragments/postsFragment.php";
+
+        echo '<div class="heading mt-3">
+                <h1>Albums</h1>
+            </div>';
+
+        $query1 = "SELECT *
+            FROM tbalbum ;";
+        $infoMsg = "Oooops, Looks like we dont have any Albums to Display.";
+        include "./fragments/albumsFragment.php";
 
         $_SESSION['searchValue'] = '';
 
@@ -190,7 +207,7 @@ elseif (!isset($_SESSION['searchBy']))
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-10 float-left align-self-center text-dark"><h2>'.$row['name'].'</h2><small>'.$row['email'].'</small></div>
-                                        <div class="col-2"><img class="float-right" src="../gallery/profilePics/'.$row['profileImage'].'" height="80"></div>
+                                        <div class="col-2"><img class="float-right profileExplore" src="../gallery/profilePics/'.$row['profileImage'].'" height="80"></div>
                                     </div>
                                 </div>
                             </div>
@@ -228,7 +245,6 @@ elseif (!isset($_SESSION['searchBy']))
     }
     else if ( isset($_SESSION['searchBy']) && $_SESSION['searchBy'] === 'hashtag' && !isset($_GET['hashtag']))
     {
-        $infoMsg = "Oooops, Looks like no match was found for your search for ".$_SESSION['searchValue'];
 
         if (isset($_SESSION['searchValue']) && $_SESSION['searchValue'] !== '')
         {
@@ -236,10 +252,11 @@ elseif (!isset($_SESSION['searchBy']))
                     <h1>Posts</h1>
                 </div>';
 
+            $infoMsg = "Oooops, Looks like no Post was found for your search for ".$_SESSION['searchValue'];
             $query = "SELECT *
             FROM tbpost
             INNER JOIN tbposthashtag on tbpost.imageID = tbposthashtag.imageID
-            WHERE tbposthashtag.hashtag LIKE'%".$_SESSION['searchValue']."%' ;";
+            WHERE tbposthashtag.hashtag LIKE'%".$_SESSION['searchValue']."%' AND privacy = 'public' ;";
 
             include "./fragments/postsFragment.php";
 
@@ -247,6 +264,7 @@ elseif (!isset($_SESSION['searchBy']))
                     <h1>Albums</h1>
                 </div>';
 
+            $infoMsg = "Oooops, Looks like no Album was found for your search for ".$_SESSION['searchValue'];
             $query1 = "SELECT *
             FROM tbalbum
             INNER JOIN tbalbumhashtag on tbalbum.albumID = tbalbumhashtag.albumID

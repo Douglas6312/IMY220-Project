@@ -19,6 +19,8 @@ include "./fragments/globals.php";
 
 <?php
 
+$ownerID = '';
+
 $editAlbumTitle = '';
 $editAlbumDescription = '';
 $editAlbumHashTags = '';
@@ -36,6 +38,7 @@ $albumInfoQuery = "SELECT *
             $editAlbumTitle = $row['title'];
             $editAlbumDescription = $row['description'];
             $editAlbumPrivacy = $row['privacy'];
+            $ownerID = $row['userID'];
 
             echo '<div class="heading">
             <h1>
@@ -104,14 +107,28 @@ $albumQuery = "SELECT tbalbum.albumID As 'albumID',tbalbum.userID AS 'userID', t
         //$res->free_result(); // Free result set
         //print_r($resArray);
 
-        $ownerAcess = false;
+        $ownerAccess = false;
+        $AdminAccess = false;
         $participantAccess = false;
         $viewAccessPrivate = false;
         $viewAccessPublic = false;
 
+        $getUserQuery = "SELECT *
+                        FROM tbuser
+                        WHERE userID = ".$_SESSION['userID'].";";
+        $result = $mysqli->query($getUserQuery);
+        if ($result && $result->num_rows > 0)
+        {
+            while($rowResult = $result->fetch_assoc())
+            {
+                if ($rowResult["userType"] == 'admin')
+                    $AdminAccess = true;
+            }
+        }
+
         if ($resArray[0]['userID'] == $_SESSION['userID'])
         {
-            $ownerAcess = true;
+            $ownerAccess = true;
         }
         else
         {
@@ -133,11 +150,10 @@ $albumQuery = "SELECT tbalbum.albumID As 'albumID',tbalbum.userID AS 'userID', t
             }
         }
 
-        if ($ownerAcess || $participantAccess)
+        if ($ownerAccess || $participantAccess || $AdminAccess)
         {
-            if ($ownerAcess)
+            if ($ownerAccess || $AdminAccess)
             {
-                $hasClickedUpdate = false;
 
                 echo '<div class="pageContent">
                         <div class="row">
@@ -204,7 +220,7 @@ $albumQuery = "SELECT tbalbum.albumID As 'albumID',tbalbum.userID AS 'userID', t
                                                         </div>
                                                         <div class="row mt-3">
                                                             <div class="col-12">
-                                                                <button type="submit" id="editisterBtn" class="btn btn-dark submitButton">Updte <i class="fa fa-angle-right"></i></button>
+                                                                <button type="submit" id="editBtn" class="btn btn-dark submitButton">Updte <i class="fa fa-angle-right"></i></button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -303,7 +319,7 @@ $albumQuery = "SELECT tbalbum.albumID As 'albumID',tbalbum.userID AS 'userID', t
                                                                         FROM tbuser u
                                                                         INNER JOIN tbfollower f1 ON f1.userIDFollowing = u.userID
                                                                         INNER JOIN tbfollower f2 ON f1.userIDFollowing = f2.userIDFollower
-                                                                        WHERE f1.userIDFollower = ".$_SESSION['userID'];
+                                                                        WHERE f1.userIDFollower = ".$ownerID;
 
                                                         $res = $mysqli->query($friendsQuery);
                                                         if ($res && $res->num_rows > 0)
@@ -316,7 +332,7 @@ $albumQuery = "SELECT tbalbum.albumID As 'albumID',tbalbum.userID AS 'userID', t
                                                                                 <div class="card-header col-10">
                                                                                     <div class="row">
                                                                                         <div class="col-10 float-left align-self-center text-dark"><h3>'.$row['name'].'</h3></div>
-                                                                                        <div class="col-2"><img class="float-right" src="../gallery/profilePics/'.$row['profileImage'].'" height="50"></div>
+                                                                                        <div class="col-2"><img class="float-right profileFriends" src="../gallery/profilePics/'.$row['profileImage'].'" height="50"></div>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-2">';
@@ -358,7 +374,7 @@ $albumQuery = "SELECT tbalbum.albumID As 'albumID',tbalbum.userID AS 'userID', t
             $infoMsg = "Oooops, Looks like you dont have any Posts in this Album. Create your first Posts by clicking the plus in the bottom right";
             $query = "SELECT *
             FROM tbpost
-            WHERE albumID = ".$_GET['albumID']."
+            WHERE albumID = ".$_GET['albumID']."  AND privacy != 'hidden'
             ORDER BY timeStamp DESC;";
             include "./fragments/postsFragment.php";
         }
@@ -368,7 +384,7 @@ $albumQuery = "SELECT tbalbum.albumID As 'albumID',tbalbum.userID AS 'userID', t
             $infoMsg = "Oooops, Looks like there are no Posts in this Album.";
             $query = "SELECT *
             FROM tbpost
-            WHERE albumID = ".$_GET['albumID']."
+            WHERE albumID = ".$_GET['albumID']."  AND privacy != 'hidden'
             ORDER BY timeStamp DESC;";
             include "./fragments/postsFragment.php";
         }
@@ -406,4 +422,3 @@ $albumQuery = "SELECT tbalbum.albumID As 'albumID',tbalbum.userID AS 'userID', t
     <script src="../js/postsFragment.js"></script>
 </body>
 </html>
-

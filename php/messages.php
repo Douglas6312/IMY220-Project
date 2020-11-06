@@ -18,9 +18,12 @@ include "./fragments/globals.php";
     <h1>My Messages</h1>
 </div>
 
-<main class="container-fluid pageContent">
+<main class="pageContent">
     <div class="row">
-        Content Goes HERE....
+        <div class="bg-text">
+            <h1>COMING SOON</h1>
+            <p>This feature is under construction</p>
+        </div>
     </div>
 </main>
 

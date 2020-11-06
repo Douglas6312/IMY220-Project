@@ -55,16 +55,6 @@
 
                                                         $hasAlbums = false;
 
-                                                        /*$query1 = "SELECT tbalbum.albumID, tbalbum.title
-                                                                    FROM tbalbum
-                                                                    LEFT JOIN tbalbumparticipant ON tbalbum.albumID = tbalbumparticipant.albumID
-                                                                    WHERE tbalbum.userID = ".$_SESSION['userID']." OR tbalbumparticipant.userID = ".$_SESSION['userID']. "
-                                                                    UNION ALL
-                                                                    SELECT tbalbum.albumID, tbalbum.title
-                                                                    FROM tbalbum
-                                                                    RIGHT JOIN tbalbumparticipant ON tbalbum.albumID = tbalbumparticipant.albumID
-                                                                    WHERE tbalbum.userID = ".$_SESSION['userID']." OR tbalbumparticipant.userID = ".$_SESSION['userID'];*/
-
                                                         $query1 = "SELECT *
                                                                     FROM tbalbum
                                                                     WHERE userID = ".$_SESSION['userID']."
@@ -73,7 +63,7 @@
                                                         $query2 = "SELECT *
                                                                     FROM tbalbum
                                                                     INNER JOIN tbalbumparticipant ON tbalbum.albumID = tbalbumparticipant.albumID
-                                                                    WHERE tbalbum.userID = ".$_SESSION['userID']." OR tbalbumparticipant.userID = ".$_SESSION['userID']."
+                                                                    WHERE tbalbumparticipant.userID = ".$_SESSION['userID']."
                                                                     ORDER BY tbalbum.timeStamp DESC;";
 
                                                         $res = $mysqli->query($query1);
@@ -129,7 +119,7 @@
                                                 <div class="col-3">
                                                     <small class="form-text text-muted mb-1">&fnof; Stop</small>
                                                     <label class="sr-only"  for="regFStop"></label>
-                                                    <input type="number" step="0.1" class="form-control" id="regFStop" name="regFStop" placeholder="&fnof;2.8" autocomplete="off" required>
+                                                    <input type="number" step="0.1" class="form-control" id="regFStop" name="regFStop" placeholder="2.8" autocomplete="off" required>
                                                 </div>
                                                 <div class="col-3">
                                                     <small class="form-text text-muted mb-1">Lens</small>

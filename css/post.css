@@ -12,3 +12,16 @@
     height: 60px
 }
 
+#previewImg{
+    position: relative;
+    width: 200px;
+}
+#editBtn{
+    width: 100%;
+}
+
+.postComments{
+    max-height: 40em;
+    overflow-y: auto ;
+}
+

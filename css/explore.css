@@ -1,3 +1,11 @@
 .default-color{
     background-color: #34b7a7 !important;
 }
+
+.profileExplore
+{
+    width:80px;
+    height:80px;
+    object-fit:cover;
+    border-radius:50%;
+}

@@ -20,15 +20,11 @@ include "./fragments/globals.php";
 </div>
 
 <?php
-$query = "SELECT imageID,userID,title,caption,stars,timeStamp,fileLocation,privacy,iso,shutterSpeed,fStop,lens,albumID
-FROM tbpost
-INNER JOIN tbfollower ON tbpost.userID = tbfollower.userIDFollowing
-WHERE tbfollower.userIDFollower = ".$_SESSION['userID']."
-UNION ALL
-SELECT imageID,userID,title,caption,stars,timeStamp,fileLocation,privacy,iso,shutterSpeed,fStop,lens,albumID
-FROM tbpost
-WHERE userID =  ".$_SESSION['userID']."
-ORDER BY timeStamp DESC;";
+
+$query = "SELECT *
+        FROM tbpost
+        WHERE privacy = 'public' AND  userID !=  '".$_SESSION['userID']."' AND userID IN (SELECT userIDFollowing FROM tbfollower WHERE userIDFollower = ".$_SESSION['userID'].") 
+        ORDER BY timeStamp DESC;";
 
 $infoMsg = "Oooops its looking a bit empty here, make sure to follow your favourite photographers to see there posts, or create your very first post in My Posts";
 

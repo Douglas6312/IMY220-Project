@@ -1,0 +1,8 @@
+tr{
+    line-height: 1px;
+}
+
+.reportsTable{
+    overflow-y: auto;
+    height: 180px;
+}

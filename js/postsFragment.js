@@ -21,8 +21,8 @@ $(document).ready(() =>{
     });
 
     $("img,.middle").on('click',function () {
-        let postID = $(this).parent().data("postid");
-        window.location.href = "./post.php?postID="+postID;
+        let imageID = $(this).parent().data("imageid");
+        window.location.href = "./post.php?imageID="+imageID;
     });
 
 });

@@ -26,3 +26,7 @@ a.fab {
 .fa-remove{
     color: white;
 }
+
+#registerBtn{
+    width: 100%;
+}

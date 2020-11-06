@@ -31,8 +31,8 @@
                     </a>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="profileDropdownLink" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['userName'] ?></a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="./profile.php">View Profile</a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="./profile.php?userID=<?php echo $_SESSION['userID'] ?>" >View Profile</a>
                             <?php
                             if ($_SESSION['userType'] == "admin")
                             {
@@ -47,12 +47,12 @@
                 <?php
                 if ($_SESSION['userType'] == "admin")
                 {
-                    echo ' <img src="../assets/default.png" alt="Avatar" class="adminAvatar mr-0">
+                    echo ' <img src="../gallery/profilePics/'.$_SESSION['userProfileImg'].'"  alt="Avatar" class="adminAvatar mr-0">
                                 <i class="fa fa-star ml-0 mb-4" aria-hidden="true"></i>';
                 }
                 else
                 {
-                    echo ' <img src="../assets/default.png" alt="Avatar" class="avatar mr-2">';
+                    echo ' <img src="../gallery/profilePics/'.$_SESSION['userProfileImg'].'" alt="Avatar" class="avatar mr-2">';
                 }
                 ?>
             </div>
