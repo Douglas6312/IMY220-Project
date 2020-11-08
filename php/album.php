@@ -276,7 +276,7 @@ $albumQuery = "SELECT tbalbum.albumID As 'albumID',tbalbum.userID AS 'userID', t
                         //print_r($hashtagarray);
                         for($i = 0; $i < count($hashtagarray); $i++)
                         {
-                            $query = "INSERT INTO tbalbumhashtag(albumID,hashtag) VALUES ('$albumID','".$hashtagarray[$i]."')";
+                            $query = "INSERT INTO tbalbumhashtag(albumID,hashtag) VALUES ('$albumID','".test_input($hashtagarray[$i])."')";
                             $res = $mysqli->query($query);
                             if (!$res)
                                 $successfullyAdded = false;
@@ -315,11 +315,18 @@ $albumQuery = "SELECT tbalbum.albumID As 'albumID',tbalbum.userID AS 'userID', t
                                                     <div class="card-body">
                                                         <div class="row friends">';
 
-                                                        $friendsQuery = "SELECT *
+                                                        /*$friendsQuery = "SELECT *
                                                                         FROM tbuser u
                                                                         INNER JOIN tbfollower f1 ON f1.userIDFollowing = u.userID
                                                                         INNER JOIN tbfollower f2 ON f1.userIDFollowing = f2.userIDFollower
-                                                                        WHERE f1.userIDFollower = ".$ownerID;
+                                                                        WHERE f1.userIDFollower = ".$ownerID;*/
+
+                                                        $friendsQuery = "select *
+                                                                        from tbuser
+                                                                        where userID IN (select tbl1.userIDFollowing from tbfollower tbl1
+                                                                        join tbfollower tbl2
+                                                                        on tbl1.userIDFollowing =tbl2.userIDFollower
+                                                                        where tbl1.userIDFollower = ".$ownerID." and tbl2.userIDFollowing = ".$ownerID." );";
 
                                                         $res = $mysqli->query($friendsQuery);
                                                         if ($res && $res->num_rows > 0)
@@ -332,7 +339,7 @@ $albumQuery = "SELECT tbalbum.albumID As 'albumID',tbalbum.userID AS 'userID', t
                                                                                 <div class="card-header col-10">
                                                                                     <div class="row">
                                                                                         <div class="col-10 float-left align-self-center text-dark"><h3>'.$row['name'].'</h3></div>
-                                                                                        <div class="col-2"><img class="float-right profileFriends" src="../gallery/profilePics/'.$row['profileImage'].'" height="50"></div>
+                                                                                        <div class="col-2"><img class="float-right profileFriends" src="'.$row['profileImage'].'" height="50"></div>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-2">';

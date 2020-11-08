@@ -260,7 +260,7 @@ if (isset($_POST["regTitle"]) && isset($_POST["regCaption"]) && isset($_POST["re
                 //print_r($hashtagarray);
                 for($i = 0; $i < count($hashtagarray); $i++)
                 {
-                    $query = "INSERT INTO tbposthashtag(imageID,hashtag) VALUES ('$newImageID','".$hashtagarray[$i]."')";
+                    $query = "INSERT INTO tbposthashtag(imageID,hashtag) VALUES ('$newImageID','".test_input($hashtagarray[$i])."')";
                     $res = $mysqli->query($query);
                     if (!$res)
                         $successfullyAdded = false;

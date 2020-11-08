@@ -207,7 +207,7 @@ elseif (!isset($_SESSION['searchBy']))
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-10 float-left align-self-center text-dark"><h2>'.$row['name'].'</h2><small>'.$row['email'].'</small></div>
-                                        <div class="col-2"><img class="float-right profileExplore" src="../gallery/profilePics/'.$row['profileImage'].'" height="80"></div>
+                                        <div class="col-2"><img class="float-right profileExplore" src="'.$row['profileImage'].'" height="80"></div>
                                     </div>
                                 </div>
                             </div>

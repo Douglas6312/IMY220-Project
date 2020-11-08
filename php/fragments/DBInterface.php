@@ -19,7 +19,7 @@ if (isset($_POST['action']))
             {
                 while ($row = $res->fetch_assoc())
                 {
-                    $file_pointer = "../../gallery/".$row['fileLocation'];
+                    $file_pointer = "../".$row['fileLocation'];
 
                     if (!unlink($file_pointer))
                     {
@@ -134,7 +134,7 @@ if (isset($_POST['action']))
             {
                 while ($row = $res->fetch_assoc())
                 {
-                    $file_pointer = "../../gallery/".$row['fileLocation'];
+                    $file_pointer = "../".$row['fileLocation'];
 
                     if (!unlink($file_pointer))
                     {
@@ -304,8 +304,8 @@ if (isset($_POST['action']))
     {
         if (isset($_POST['reason']))
         {
-
-            $query = "INSERT INTO tbpostreportreason (reason) VALUES ('".$_POST['reason']."');";
+            $reason  = test_input($_POST['reason']);
+            $query = "INSERT INTO tbpostreportreason (reason) VALUES ('".$reason."');";
 
             $res = $mysqli->query($query);
             $newReportReasonID = $mysqli->insert_id;
@@ -388,6 +388,125 @@ if (isset($_POST['action']))
             }
         }
     }
+
+    if ($_POST['action'] == "deleteUser")
+    {
+        if (isset($_POST['userID']))
+        {
+            $filesRemoved = true;
+
+            $query = "SELECT *
+                    FROM tbpost
+                    WHERE userID = ".$_POST['userID'];
+
+            $res = $mysqli->query($query);
+            if ($res && $res->num_rows > 0)
+            {
+                while ($row = $res->fetch_assoc())
+                {
+                    $file_pointer = "../".$row['fileLocation'];
+
+                    if (!unlink($file_pointer))
+                    {
+                        $filesRemoved = false;
+                        $data = array("msg"=>"Invalid");
+                        $json = json_encode($data);
+                        echo $json;
+                    }
+                }
+            }
+
+            $query = "SELECT *
+                    FROM tbuser
+                    WHERE userID = ".$_POST['userID'];
+
+            $res = $mysqli->query($query);
+            if ($res && $res->num_rows > 0)
+            {
+                while ($row = $res->fetch_assoc())
+                {
+                    $file_pointer = "../".$row['profileImage'];
+
+                    if (!unlink($file_pointer))
+                    {
+                        $filesRemoved = false;
+                        $data = array("msg"=>"Invalid");
+                        $json = json_encode($data);
+                        echo $json;
+                    }
+                }
+            }
+
+            if ($filesRemoved)
+            {
+                $query = "DELETE
+                    FROM tbuser
+                    WHERE userID = ".$_POST['userID'];
+
+                $res = $mysqli->query($query);
+                if ($res)
+                {
+                    $data = array("msg"=>"Valid");
+                    $json = json_encode($data);
+                    echo $json;
+                }
+                else
+                {
+                    $data = array("msg"=>"Invalid");
+                    $json = json_encode($data);
+                    echo $json;
+                }
+            }
+        }
+    }
+
+    if ($_POST['action'] == "follow" || $_POST['action'] == "unfollow")
+    {
+
+        if (isset($_POST['follower']) && isset($_POST['following']))
+        {
+            if ($_POST['action'] == "follow")
+            {
+                $query = "INSERT INTO tbfollower (userIDFollower,userIDFollowing) VALUES ('".$_POST['follower']."','".$_POST['following']."');";
+
+                $res = $mysqli->query($query);
+                if ($res)
+                {
+                    $data = array("msg"=>"Valid");
+                    $json = json_encode($data);
+                    echo $json;
+                }
+                else
+                {
+                    $data = array("msg"=>"Invalid");
+                    $json = json_encode($data);
+                    echo $json;
+                }
+            }
+            else
+            {
+                $query = "DELETE
+                    FROM tbfollower
+                    WHERE userIDFollower = ".$_POST['follower']." AND userIDFollowing = ".$_POST['following'];
+
+                $res = $mysqli->query($query);
+                if ($res)
+                {
+                    $data = array("msg"=>"Valid");
+                    $json = json_encode($data);
+                    echo $json;
+                }
+                else
+                {
+                    $data = array("msg"=>"Invalid");
+                    $json = json_encode($data);
+                    echo $json;
+                }
+            }
+        }
+    }
+
+
 
 
 

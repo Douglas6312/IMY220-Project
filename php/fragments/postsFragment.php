@@ -33,7 +33,7 @@
                     }
 
                     echo '<div class="img" data-imageid="'.$resArray[$x]["imageID"].'">
-                            <img src="../gallery/'.$resArray[$x]["fileLocation"].'" class="image" alt="Image of Post">
+                            <img src="'.$resArray[$x]["fileLocation"].'" class="image" alt="Image of Post">
                             <div class="middle">
                                 <div class="text top-right"><a href="profile.php?userID='.$resArray[$x]["userID"].'" data-userID="'.$resArray[$x]["userID"].'" class="text-secondary h4">'.$usersName.'</a></div>
                                 <div class="text text-middle">'.$resArray[$x]["title"].'</div>
@@ -66,7 +66,7 @@
                     }
 
                     echo '<div class="img" data-imageid="'.$resArray[$x]["imageID"].'">
-                            <img src="../gallery/'.$resArray[$x]["fileLocation"].'" class="image" alt="Image of Post">
+                            <img src="'.$resArray[$x]["fileLocation"].'" class="image" alt="Image of Post">
                             <div class="middle">
                                 <div class="text top-right"><a href="profile.php?userID='.$resArray[$x]["userID"].'" data-userID="'.$resArray[$x]["userID"].'" class="text-secondary h4">'.$usersName.'</a></div>
                                 <div class="text text-middle">'.$resArray[$x]["title"].'</div>
@@ -99,7 +99,7 @@
                     }
 
                     echo '<div class="img" data-imageid="'.$resArray[$x]["imageID"].'">
-                            <img src="../gallery/'.$resArray[$x]["fileLocation"].'" class="image" alt="Image of Post">
+                            <img src="'.$resArray[$x]["fileLocation"].'" class="image" alt="Image of Post">
                             <div class="middle">
                                 <div class="text top-right"><a href="profile.php?userID='.$resArray[$x]["userID"].'" data-userID="'.$resArray[$x]["userID"].'" class="text-secondary h4">'.$usersName.'</a></div>
                                 <div class="text text-middle">'.$resArray[$x]["title"].'</div>
@@ -132,7 +132,7 @@
                     }
 
                     echo '<div class="img" data-imageid="'.$resArray[$x]["imageID"].'">
-                            <img src="../gallery/'.$resArray[$x]["fileLocation"].'" class="image" alt="Image of Post">
+                            <img src="'.$resArray[$x]["fileLocation"].'" class="image" alt="Image of Post">
                             <div class="middle">
                                 <div class="text top-right"><a href="profile.php?userID='.$resArray[$x]["userID"].'" data-userID="'.$resArray[$x]["userID"].'" class="text-secondary h4">'.$usersName.'</a></div>
                                 <div class="text text-middle">'.$resArray[$x]["title"].'</div>

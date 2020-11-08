@@ -52,7 +52,7 @@
                                             {
                                                 while($rowResult = $result->fetch_assoc())
                                                 {
-                                                    echo '<img alt="Preview Image" src="../gallery/'.$rowResult["fileLocation"].'" />';
+                                                    echo '<img alt="Preview Image" src="'.$rowResult["fileLocation"].'" />';
                                                 }
                                             }
                                         echo '</div>
@@ -119,7 +119,7 @@
                                             {
                                                 while($rowResult = $result->fetch_assoc())
                                                 {
-                                                    echo '<img alt="Preview Image" src="../gallery/'.$rowResult["fileLocation"].'" />';
+                                                    echo '<img alt="Preview Image" src="'.$rowResult["fileLocation"].'" />';
                                                 }
                                             }
                                             echo '</div>

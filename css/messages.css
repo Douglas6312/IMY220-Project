@@ -14,3 +14,60 @@
     text-align: center;
     width: 50%;
 }
+
+.friends{
+    max-height: 40em;
+    overflow-y: auto ;
+}
+
+.profileFriends
+{
+    width:50px;
+    height:50px;
+    object-fit:cover;
+    border-radius:50%;
+}
+
+.headingFriends{
+    margin-top: 6em;
+    margin-left: 8%;
+    margin-right: 8%;
+    border-bottom: 6px solid #34b7a7;
+}
+
+.msg {
+    height: 55vh;
+    overflow-y: auto;
+}
+
+.msgFriends {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.sendMSG{
+    float: bottom;
+}
+
+.sender{
+    text-align: right;
+}
+
+.receiver{
+    text-align: left;
+}
+
+#messages { list-style-type: none; margin: 0; padding: 0; }
+#messages li:nth-child(even) {padding: 1px 20px 1px 20px }
+#messages li:nth-child(odd) {padding: 1px 20px 1px 20px ; background: #eee; }
+
+.vl:after {
+    content:"";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    border-left: 4px solid  #34b7a7;
+    transform: translate(-50%);
+}

@@ -94,7 +94,7 @@ $(document).ready(() =>{
                             {
                                 //window.location.href = "./posts.php";
                                 $('.comments').append('<div class="media mb-2">\n' +
-                                                '     <a href="./profile.php?userID='+json.userID+'" class="text-dark"><img class="mr-3 rounded-circle" alt="avatar" src="../gallery/profilePics/'+json.profileImage+'" /></a>\n' +
+                                                '     <a href="./profile.php?userID='+json.userID+'" class="text-dark"><img class="mr-3 rounded-circle" alt="avatar" src="'+json.profileImage+'" /></a>\n' +
                                                 '     <div class="media-body">\n' +
                                                 '         <div class="row">\n' +
                                                 '             <div class="col-8 d-flex">\n' +

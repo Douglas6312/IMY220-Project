@@ -133,7 +133,7 @@ include "./fragments/albumsFragment.php";
             //print_r($hashtagarray);
             for($i = 0; $i < count($hashtagarray); $i++)
             {
-                $query = "INSERT INTO tbalbumhashtag(albumID,hashtag) VALUES ('$newAlbumID','".$hashtagarray[$i]."')";
+                $query = "INSERT INTO tbalbumhashtag(albumID,hashtag) VALUES ('$newAlbumID','".test_input($hashtagarray[$i])."')";
                 $res = $mysqli->query($query);
                 if (!$res)
                     $successfullyAdded = false;

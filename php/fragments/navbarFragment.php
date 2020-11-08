@@ -47,12 +47,12 @@
                 <?php
                 if ($_SESSION['userType'] == "admin")
                 {
-                    echo ' <img src="../gallery/profilePics/'.$_SESSION['userProfileImg'].'"  alt="Avatar" class="adminAvatar mr-0">
+                    echo ' <img src="'.$_SESSION['userProfileImg'].'"  alt="Avatar" class="adminAvatar mr-0">
                                 <i class="fa fa-star ml-0 mb-4" aria-hidden="true"></i>';
                 }
                 else
                 {
-                    echo ' <img src="../gallery/profilePics/'.$_SESSION['userProfileImg'].'" alt="Avatar" class="avatar mr-2">';
+                    echo ' <img src="'.$_SESSION['userProfileImg'].'" alt="Avatar" class="avatar mr-2">';
                 }
                 ?>
             </div>

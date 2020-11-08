@@ -229,7 +229,7 @@ if ($_SESSION['userID'] == $ownerID || $AdminAccess)
                                                         <input type="file" id="editPicture" class="form-control" name="editPicture" autocomplete="off" required disabled>
                                                     </div>
                                                 </div>
-                                                <div class="col-12 m-3 text-center" id="pImg"><img src="../gallery/'.$editPostFileLocation.'" id="previewImg"></div>
+                                                <div class="col-12 m-3 text-center" id="pImg"><img src="'.$editPostFileLocation.'" id="previewImg"></div>
                                                 <div class="row mt-3">
                                                     <div class="col-12">
                                                         <button type="submit" id="editBtn" class="btn btn-dark submitButton">Update <i class="fa fa-angle-right"></i></button>
@@ -295,7 +295,7 @@ if ($_SESSION['userID'] == $ownerID || $AdminAccess)
             //print_r($hashtagarray);
             for($i = 0; $i < count($hashtagarray); $i++)
             {
-                $query = "INSERT INTO tbposthashtag(imageID,hashtag) VALUES ('$imageID','".$hashtagarray[$i]."')";
+                $query = "INSERT INTO tbposthashtag(imageID,hashtag) VALUES ('$imageID','".test_input($hashtagarray[$i])."')";
                 $res = $mysqli->query($query);
                 if (!$res)
                     $successfullyAdded = false;
@@ -350,7 +350,7 @@ echo '<main class="container-fluid pageContent">
         </div>
     </div>
     <div class="row mb-5">
-        <img src="../gallery/'.$editPostFileLocation.'" class="col-8">
+        <img src="'.$editPostFileLocation.'" class="col-8">
         <div class="col-4">
           <h3 class="mb-3 col-12"> <i class="fa fa-comment-o" aria-hidden="true"></i> Comments <a data-imageid="'.$_GET['imageID'].'" class="btn btn-secondary float-right text-white col-sm-12 col-lg-5 addComment">New Comment</a></h3>
             <div class="row postComments">
@@ -371,7 +371,7 @@ echo '<main class="container-fluid pageContent">
                                 while($row = $res->fetch_assoc())
                                 {
                                     echo '<div class="media mb-2">
-                                            <a href="./profile.php?userID='.$row["userID"].'" class="text-dark"><img class="mr-3 rounded-circle" alt="avatar" src="../gallery/profilePics/'.$row['profileImage'].'" /></a>
+                                            <a href="./profile.php?userID='.$row["userID"].'" class="text-dark"><img class="mr-3 rounded-circle" alt="avatar" src="'.$row['profileImage'].'" /></a>
                                             <div class="media-body">
                                                 <div class="row">
                                                     <div class="col-8 d-flex">
