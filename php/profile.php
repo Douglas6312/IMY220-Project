@@ -497,7 +497,7 @@ include "./fragments/postsFragment.php";
 <?php
 $query1 = "SELECT *
     FROM tbalbum
-    WHERE userID = ".$_SESSION['userID']."
+    WHERE userID = ".$_GET['userID']."
     ORDER BY timeStamp DESC;";
 
 $query2 = "SELECT *

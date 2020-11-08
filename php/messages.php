@@ -26,13 +26,14 @@ include "./fragments/globals.php";
         <div class="col-5 msgFriends">
             <?php
 
-            $friendsQuery = "SELECT *
-                    FROM tbuser u
-                    INNER JOIN tbfollower f1 ON f1.userIDFollowing = u.userID
-                    INNER JOIN tbfollower f2 ON f1.userIDFollowing = f2.userIDFollower
-                    WHERE f1.userIDFollower = ".$_SESSION['userID'];
+            $userMutualFriendsQuery = "select *
+                                        from tbuser
+                                        where userID IN (select tbl1.userIDFollowing from tbfollower tbl1
+                                        join tbfollower tbl2
+                                        on tbl1.userIDFollowing =tbl2.userIDFollower
+                                        where tbl1.userIDFollower = ".$_SESSION['userID']." and tbl2.userIDFollowing = ".$_SESSION['userID']." );";
 
-            $res = $mysqli->query($friendsQuery);
+            $res = $mysqli->query($userMutualFriendsQuery);
             if ($res && $res->num_rows > 0)
             {
                 $count = 1;
@@ -62,7 +63,6 @@ include "./fragments/globals.php";
                                 </div>
                             </div>
                         </a>';
-
                 }
             }
             ?>

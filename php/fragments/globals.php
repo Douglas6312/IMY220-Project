@@ -22,7 +22,7 @@ ini_set('error_reporting', E_ALL);
 
 //Database connection settings and connection
 $server = "localhost";
-$username = "root"; //root
+$username = "root"; //u19049782
 $password = ""; //ivypudta
 $database = "dbu19049782";
 $mysqli = new mysqli($server, $username, $password, $database);
